@@ -6,11 +6,11 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 00:10:30 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/06 18:43:17 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/06 22:31:55 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 int	gap(char c)
 {
@@ -25,6 +25,7 @@ void	free_tokens(t_token *token)
 	{
 		if (token->string)
 			free(token->string);
+		temp = token;
 		token = token->prev;
 		free(temp);
 	}
@@ -36,9 +37,9 @@ t_token	*init_deafult_token(t_token *token)
 
 	new = malloc(sizeof(t_token));
 	if (!new)
-		return (printf("m_error\n"));
+		return (printf("m_error\n"),  NULL);
 	new->string = NULL;
-	new->quote_type = NULL;
+	new->quote_type = 0;
 	new->next = NULL;
 	new->prev = token;
 	return (new);

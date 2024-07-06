@@ -6,19 +6,26 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 02:04:41 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/06 00:18:23 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/06 22:23:28 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int argc, char **argv, char **envp)
+int	main(int argc, char **envp)
 {
 	t_terminal_inputs	*terminal;
 
 	if (argc != 1)
-		return (prif("Type only : './minishell' \n"));
+		return (printf("Type only : './minishell' \n"));
+	//
+	terminal = malloc(sizeof(t_terminal_inputs));
+	if (!terminal)
+		return (printf("m_error\n"));
+	terminal->env = envp;
+	//
 	while ("the program is running")
 		if (command_center(terminal) == CTRL_D)
 			break ;
+	return (free(terminal), 0);
 }

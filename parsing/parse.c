@@ -6,16 +6,15 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 02:04:44 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/06 21:53:55 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/06 22:25:43 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 int	extract_token_characteristic(char *s, t_token *token)
 {
 	int		i;
-	int		checker;
 
 	token = init_deafult_token(NULL);
 	if (!token)
@@ -34,7 +33,7 @@ int	extract_token_characteristic(char *s, t_token *token)
 		// Prepping new token
 		token->next		=	init_deafult_token(token);
 		if (!token->next)
-			retrun (free_token(token), MALLOC_FAIL);
+			return (free_tokens(token), MALLOC_FAIL);
 		// Iterating at the start of next token
 		i += iterate_i(&s[i]);
 	}
@@ -47,7 +46,7 @@ int	check_gaps_and_clear(char *s)
 {
 	int	i;
 
-	if (!ft_strncmp(s, "clear", 5) == 0 && \
+	if (!ft_strncmp(s, "clear", 5) && \
 			(gap(s[5] || !s[5])))
 		return (free(s), printf("\033[H\033[J"), 1);
 	i = 0;
@@ -65,6 +64,7 @@ int	command_center(t_terminal_inputs *terminal)
 		return (CTRL_D);
 	if (check_gaps_and_clear(terminal->input))
 		return (1);
-	if (!extract_token_characteristic(*terminal->input, terminal->input->token))
+	if (!extract_token_characteristic(terminal->input, NULL))
 		return (1);
+	return (0);	
 }

@@ -6,7 +6,7 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 12:55:08 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/04 19:49:07 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/06 22:05:03 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <unistd.h>
-
-# include "minishell.h"
 
 typedef struct s_list
 {

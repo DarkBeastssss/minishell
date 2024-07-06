@@ -6,7 +6,7 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 05:12:02 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/06 21:52:44 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/06 22:10:51 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,13 @@ char	*extract_token_text(char *s)
 			while (s[i])
 			{
 				if (s[i] == quote_type)
-					return (ft_substr(s, start, i));
+					break ;
 				i++;
-			}
+			}	
 		}
 		i++;
 	}
+	return (ft_substr(s, start, i));
 }
 
 int	extract_token_type(char *s)

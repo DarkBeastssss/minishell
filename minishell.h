@@ -6,7 +6,7 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 03:04:51 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/06 20:41:06 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/06 22:17:39 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 
 
 # include <readline/readline.h>
+# include <readline/history.h>
+
 
 typedef enum s_type
 {
@@ -47,7 +49,7 @@ typedef struct s_token
 typedef struct s_terminal_inputs
 {
 	char			*input;
-	char **env;									//! add envp
+	char			**env;
 }					t_terminal_inputs;
 
 //
@@ -59,7 +61,8 @@ int		check_gaps_and_clear(char *s);
 
 int		extract_token_characteristic(char *s, t_token *token);
 char	*extract_token_text(char *s);
-int		extract_token_type(char *s)
+int		extract_token_type(char *s);
+char	extract_quote_type(t_token *token);
 int		iterate_i(char *s);
 
 
