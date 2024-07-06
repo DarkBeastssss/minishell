@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_hub.c                                        :+:      :+:    :+:   */
+/*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 02:04:44 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/06 05:09:38 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/06 21:53:55 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,33 @@
 int	extract_token_characteristic(char *s, t_token *token)
 {
 	int		i;
+	int		checker;
 
-	i = 0;
-	token = malloc(sizeof(t_token));
+	token = init_deafult_token(NULL);
 	if (!token)
 		return (printf("m_error\n"), MALLOC_FAIL);
-	token->prev = NULL;
-	token->string = 0;
-	token->quote_type = 0;
-	while (s[i])
-	{	// I can do a function like to do all of those at once
-		token->string = extract_text(&s[i])
-		token->type = extract_token_or_quote_type(token->string);
+	i = 0;
+	while (gap(s[i]))
 		i++;
+	while (s[i])
+	{
+		if (i == UNCLOSED_QUOTES)
+			return (printf("Error! Unclosed quotes\n"), free(token), 0);
+		// Extracting the characteristics of one token
+		token->string	=	extract_token_text(&s[i]);
+		token->type		=	extract_token_type(token->string);
+		token->quote_type =	extract_quote_type(token);
+		// Prepping new token
+		token->next		=	init_deafult_token(token);
+		if (!token->next)
+			retrun (free_token(token), MALLOC_FAIL);
+		// Iterating at the start of next token
+		i += iterate_i(&s[i]);
 	}
+	return (1);
 }
-// split (space or ' or ")
- //? | > >> < << " '
+//	split (space or ' or ")
+//?	| > >> < << " '
 
 int	check_gaps_and_clear(char *s)
 {
