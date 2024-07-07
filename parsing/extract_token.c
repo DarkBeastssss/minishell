@@ -6,7 +6,7 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 05:12:02 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/06 22:10:51 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/07 21:33:10 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,33 @@
 
 //? If minishell lags I can just replace everything without the int i, so I work
 //?		with pointers alone for efficency
-int	iterate_i(char *s)
+void	iterate(char *s, int *i)
 {
-	int		i;
 	char	quote;
 
-	i = 0;
-	//(     'assdfdfa' ls -a "aa")
-	while (gap(s[i]) && s[i])
+	while (gap(s[*i]) && s[*i])
 	{
 		i++;
-		if (!gap(s[i]) || !s[i])
-			return (i);
+			if (!gap(s[*i + 1]) || !s[*i])
+			{
+				i++;
+				return ;
+			}
 	}
-	quote = ' ';
-	if (s[0] == '\'' && s[0] == '\"')
-		quote = s[0];
+	if (s[*i] == '\'' ||s[*i] == '\"')
+		quote = s[*i];
+	else
+		quote = ' ';
 	i++;
-	while (s[i] != quote && s[i])
+	while (s[*i] != quote)
 	{
+		if (!s[*i])
+		{
+			*i = UNCLOSED_QUOTES;
+			return ;
+		}
 		i++;
-		if (!s[i])
-			return (i - i - UNCLOSED_QUOTES);
 	}
-	return (i);
 }
 
 char	*extract_token_text(char *s)
@@ -65,6 +68,8 @@ char	*extract_token_text(char *s)
 		}
 		i++;
 	}
+	// printf("start : %d\n", start);
+	// printf("i : %d\n", i);
 	return (ft_substr(s, start, i));
 }
 

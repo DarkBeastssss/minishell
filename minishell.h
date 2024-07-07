@@ -6,7 +6,7 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 03:04:51 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/06 22:17:39 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/07 21:32:35 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,10 @@
 # define UNCLOSED_QUOTES - 1
 
 
+# include <stdio.h>
+# include <unistd.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-
 
 typedef enum s_type
 {
@@ -63,7 +64,7 @@ int		extract_token_characteristic(char *s, t_token *token);
 char	*extract_token_text(char *s);
 int		extract_token_type(char *s);
 char	extract_quote_type(t_token *token);
-int		iterate_i(char *s);
+void	iterate(char *s, int *i);
 
 
 

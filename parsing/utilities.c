@@ -6,7 +6,7 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 00:10:30 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/06 22:31:55 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/07 19:16:33 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ void	free_tokens(t_token *token)
 
 	while (token)
 	{
-		if (token->string)
-			free(token->string);
+		free(token->string);
 		temp = token;
 		token = token->prev;
 		free(temp);

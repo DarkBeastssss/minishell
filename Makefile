@@ -6,12 +6,12 @@
 #    By: amecani <amecani@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/06 21:57:45 by amecani           #+#    #+#              #
-#    Updated: 2024/07/06 22:36:18 by amecani          ###   ########.fr        #
+#    Updated: 2024/07/07 18:44:40 by amecani          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
-LIBFT = libft
+LIBFT = libft/libft.a
 CFLAGS = -Wall -Werror -Wextra -g3
 
 SOURCES =				minishell.c \
@@ -25,17 +25,17 @@ $(LIBFT):
 	@make -C libft
 
 $(NAME): $(OBJECTS) | $(LIBFT)
-	@$(CC) $(CFLAGS) $(LIBFT) $(OBJECTS) -o $(NAME)
+	@$(CC) $(CFLAGS) $(LIBFT) $(OBJECTS) -o $(NAME) -lreadline
 
 %.o : %.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean :
-	@make -C includes/libft clean
+	@make -C libft clean
 	@rm -f $(OBJECTS)
 
 fclean: clean
-	@make -C includes/libft fclean
+	@make -C libft fclean
 	@rm -rf $(OBJECTS)
 	@rm -rf $(NAME)
 
