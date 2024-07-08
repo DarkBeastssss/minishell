@@ -6,7 +6,7 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 02:04:44 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/07 21:33:52 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/08 01:17:46 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ int	extract_token_characteristic(char *s, t_token *token)
 	int		i;
 	t_token	*_alpha_; //? Basically the first token
 
+	if (close_quotes(s) == UNCLOSED_QUOTES)
+		return (free(s), printf("Error! Unclosed quotes\n"), 0);
 	token = init_deafult_token(NULL);
 	if (!token)
 		return (printf("m_error\n"), MALLOC_FAIL);
@@ -36,30 +38,23 @@ int	extract_token_characteristic(char *s, t_token *token)
 	i = 0;
 	while (s[i])
 	{
-		// Iterates i
-		iterate(s, &i); // spaces and quotes skip
-		if (i == UNCLOSED_QUOTES)
-			return (printf("Error! Unclosed quotes\n"), free(token), 0);
-		else if (!s[i])
+		if (!s[i])
 		{
 			display_tokens(_alpha_); // Testing purposes 
 			token->next = NULL;
 			return (1);
 		}
-		// Extracting the characteristics of one token
+		printf("i : %d\n", i);
+		printf("s[0] : %s\n", &s[i]);
 		token->string	=	extract_token_text(&s[i]);
 		token->type		=	extract_token_type(token->string);
 		token->quote_type =	extract_quote_type(token);
-		// Prepping new token
 		token->next		=	init_deafult_token(token);
 		if (!token->next)
 			return (free_tokens(token), MALLOC_FAIL);
-		//? Iterating at the start of next token
 	}
 	return (1);
 }
-//	split (space or ' or ")
-//?	| > >> < << " '
 
 int	check_gaps_and_clear(char *s)
 {

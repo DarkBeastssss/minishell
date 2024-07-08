@@ -6,42 +6,11 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 05:12:02 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/07 21:33:10 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/08 03:23:17 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-//? If minishell lags I can just replace everything without the int i, so I work
-//?		with pointers alone for efficency
-void	iterate(char *s, int *i)
-{
-	char	quote;
-
-	while (gap(s[*i]) && s[*i])
-	{
-		i++;
-			if (!gap(s[*i + 1]) || !s[*i])
-			{
-				i++;
-				return ;
-			}
-	}
-	if (s[*i] == '\'' ||s[*i] == '\"')
-		quote = s[*i];
-	else
-		quote = ' ';
-	i++;
-	while (s[*i] != quote)
-	{
-		if (!s[*i])
-		{
-			*i = UNCLOSED_QUOTES;
-			return ;
-		}
-		i++;
-	}
-}
 
 char	*extract_token_text(char *s)
 {
@@ -50,7 +19,7 @@ char	*extract_token_text(char *s)
 	char	quote_type;
 
 	i = 0;
-	while (s[i])
+	while (s && s[i])
 	{
 		if (s[i] != ' ')
 		{
@@ -59,7 +28,7 @@ char	*extract_token_text(char *s)
 				quote_type = s[start];
 			start = i;
 			i += 2;
-			while (s[i])
+			while (s && s[i])
 			{
 				if (s[i] == quote_type)
 					break ;
@@ -100,4 +69,23 @@ char	extract_quote_type(t_token *token)
 		if (token->string[0] == '\'' || token->string[0] == '\"')
 			return (token->string[0]);
 	return (0);
+}
+
+int		close_quotes(char *s)
+{
+	char	*ptr;
+
+	ptr = NULL;
+
+	while (*s)
+	{
+		if (ptr == NULL && (*s == '\'' || *s == '\"'))
+			ptr = s;
+		if (s != ptr && ptr && *ptr == *s)
+			ptr = NULL;
+		s++;
+	}
+	if (ptr == NULL)
+		return (1);
+	return (UNCLOSED_QUOTES);
 }

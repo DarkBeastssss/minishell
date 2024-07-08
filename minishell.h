@@ -6,7 +6,7 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 03:04:51 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/07 21:32:35 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/08 01:18:05 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,7 @@ int		extract_token_characteristic(char *s, t_token *token);
 char	*extract_token_text(char *s);
 int		extract_token_type(char *s);
 char	extract_quote_type(t_token *token);
-void	iterate(char *s, int *i);
-
+int		close_quotes(char *s);
 
 
 //		U T I L I T I E S
