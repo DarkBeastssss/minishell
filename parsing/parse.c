@@ -6,7 +6,7 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 02:04:44 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/08 01:17:46 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/08 03:59:38 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,26 +27,18 @@ void	display_tokens(t_token *token)
 int	extract_token_characteristic(char *s, t_token *token)
 {
 	int		i;
-	t_token	*_alpha_; //? Basically the first token
+	char	**array;
 
 	if (close_quotes(s) == UNCLOSED_QUOTES)
 		return (free(s), printf("Error! Unclosed quotes\n"), 0);
 	token = init_deafult_token(NULL);
 	if (!token)
 		return (printf("m_error\n"), MALLOC_FAIL);
-	_alpha_ = token;
 	i = 0;
-	while (s[i])
+	array = custom_split(s);
+	while (array[i])
 	{
-		if (!s[i])
-		{
-			display_tokens(_alpha_); // Testing purposes 
-			token->next = NULL;
-			return (1);
-		}
-		printf("i : %d\n", i);
-		printf("s[0] : %s\n", &s[i]);
-		token->string	=	extract_token_text(&s[i]);
+		//! token->string	=	extract_token_text(&s[i]); Just fucking removve this
 		token->type		=	extract_token_type(token->string);
 		token->quote_type =	extract_quote_type(token);
 		token->next		=	init_deafult_token(token);

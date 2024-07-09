@@ -6,7 +6,7 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 05:12:02 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/08 03:23:17 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/08 03:56:18 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	extract_token_type(char *s)
 		if (s[0] == '>') // >> APPEND
 			return (OUT);
 	}
-	if (!s[2])
+	else if (!s[2])
 	{
 		if (s[0] == '<' && s[1] == '<')
 			return (H_DOC);
