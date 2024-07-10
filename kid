@@ -1,3 +1,0 @@
-migger aha
-figger
-nigger
