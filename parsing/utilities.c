@@ -6,16 +6,11 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 00:10:30 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/07 19:16:33 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/10 18:59:26 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-int	gap(char c)
-{
-	return (c == ' ' || c == '\t');
-}
 
 void	free_tokens(t_token *token)
 {
@@ -28,6 +23,27 @@ void	free_tokens(t_token *token)
 		token = token->prev;
 		free(temp);
 	}
+}
+
+void spaceify(char **s, int len)
+{
+	while (len)
+	{
+		**s = ' ';
+		(*s)++;
+		len--;
+	}
+}
+
+char *not_strchr(char *s, char ignore)
+{
+	while (*s)
+	{
+		if (*s != ignore)
+			return (s);
+		s++;
+	}
+	return (NULL);
 }
 
 t_token	*init_deafult_token(t_token *token)

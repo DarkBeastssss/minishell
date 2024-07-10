@@ -6,40 +6,47 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 05:12:02 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/08 03:56:18 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/10 19:11:59 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*extract_token_text(char *s)
-{
-	int		i;
-	int		start;
-	char	quote_type;
 
-	i = 0;
-	while (s && s[i])
+void	extract_token_text_and_quote(char *s, t_token **token)
+{
+	int		i = 0;
+	char	sep = ' ';
+
+	if ((s[0] == '<' && s[1] == '<') || (s[0] == '>' && s[1] == '>'))
 	{
-		if (s[i] != ' ')
-		{
-			quote_type = ' ';
-			if (s[i] == '\'' || s[i] == '\"' )
-				quote_type = s[start];
-			start = i;
-			i += 2;
-			while (s && s[i])
-			{
-				if (s[i] == quote_type)
-					break ;
-				i++;
-			}	
-		}
-		i++;
+		(*token)->string = ft_substr(s, 0, 2);
+		spaceify(&(*token)->string, 2);
 	}
-	// printf("start : %d\n", start);
-	// printf("i : %d\n", i);
-	return (ft_substr(s, start, i));
+	else if (s[0] == '|' || s[0] == '>' || s[0] == '<')
+	{
+		(*token)->string = ft_substr(s, 0 , 1);
+		spaceify(&(*token)->string, 1);
+	}
+	else
+	{
+		sep = s[0];
+		if (sep == '\'' || sep == '\"')
+		{
+			i++;
+			while (s[i + 1] != sep && s[i])
+				i++;
+			(*token)->string = ft_substr(s, 0, i);
+			spaceify(&(*token)->string, i);
+		}
+		else
+		{
+			while (s[i] && !ft_strchr(" \'\"><|", s[i]))
+				i++;
+			(*token)->string = ft_substr(s, 0, i);
+			spaceify(&(*token)->string, i);
+		}
+	}
 }
 
 int	extract_token_type(char *s)
@@ -61,14 +68,6 @@ int	extract_token_type(char *s)
 			return (APPEND);
 	}
 	return (WORD);
-}
-
-char	extract_quote_type(t_token *token)
-{
-	if (token->type == WORD)
-		if (token->string[0] == '\'' || token->string[0] == '\"')
-			return (token->string[0]);
-	return (0);
 }
 
 int		close_quotes(char *s)

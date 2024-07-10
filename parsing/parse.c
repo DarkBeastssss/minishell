@@ -6,7 +6,7 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 02:04:44 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/10 12:22:11 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/10 19:12:42 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	display_tokens(t_token *token)
 int	extract_token_characteristic(char *s, t_token *token)
 {
 	int		i;
-	char	**array;
 
 	if (close_quotes(s) == UNCLOSED_QUOTES)
 		return (free(s), printf("Error! Unclosed quotes\n"), 0);
@@ -35,42 +34,43 @@ int	extract_token_characteristic(char *s, t_token *token)
 	if (!token)
 		return (printf("m_error\n"), MALLOC_FAIL);
 	i = 0;
-	array = custom_split(s);
-	while (array[i])
+	s = not_strchr(s, ' ');
+	while (s)
 	{
-		//! token->string	=	extract_token_text(&s[i]); Just fucking removve this
-		token->type		=	extract_token_type(token->string);
-		token->quote_type =	extract_quote_type(token);
+		extract_token_text_and_quote(s, &token); //! Extract Quote Next
+		token->type		=	extract_token_type(token->string);//*fix after up quote and text extraction complete
 		token->next		=	init_deafult_token(token);
 		if (!token->next)
-			return (free_tokens(token), MALLOC_FAIL);
+			return (free_tokens(token), printf("m_fail\n"), MALLOC_FAIL);
+		s = not_strchr(s, ' ');
 	}
 	return (1);
 }
 
-int	check_gaps_and_clear(char *s)
+static int	check_gaps_and_clear(char **s)
 {
-	int	i;
-
-	if (!ft_strncmp(s, "clear", 5) && \
-			(gap(s[5]) || !s[5]))
-		return (free(s), printf("\033[H\033[J"), 1);
-	i = 0;
-	while (gap(s[i++]))
-		if (!s[i + 1])
-			return (free(s), 1);
+	if (!ft_strncmp(*s, "clear", 5) && \
+			((*s[5] == ' ') || !*s[5]))
+		return (free(*s), printf("\033[H\033[J"), 1);
+	while (**s == ' ')
+		if (!(**s + 1))
+			return (free(*s), 1);
+	// while (*s[i++] == ' ')
+	// 	if (!s[i + 1])
+	// 		return (free(*s), 1);
 	return (0);
 }
 
-int	command_center(t_terminal_inputs *terminal)
+int	command_center(t_terminal_inputs **terminal)
 {
-	terminal->input = readline("terminal :");
-	add_history(terminal->input);
-	if (!terminal->input)
+	(*terminal)->input = readline("terminal :");
+	add_history((*terminal)->input);
+	if (!(*terminal)->input)
 		return (CTRL_D);
-	if (check_gaps_and_clear(terminal->input)) //* Works
+	if (!check_gaps_and_clear(&(*terminal)->input)) //* Works
 		return (1);
-	if (!extract_token_characteristic(terminal->input, NULL))
+	if (!extract_token_characteristic(((*terminal)->input), NULL))
 		return (1);
-	return (0);	
+	return (55);
+	// return (0);
 }
