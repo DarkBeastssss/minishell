@@ -6,7 +6,7 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 02:04:44 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/12 14:33:35 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/12 19:21:28 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,36 +29,36 @@ void	display_tokens(t_token *token)
 	printf("NULL\n");
 }
 
-int	extract_token_characteristic(char *s, t_token *token)
-{
+int	extract_token_characteristic(char *s, t_token **token)
+{//! doesnt handle "" and '' (empty quotes)
 	int		i;
-		// wana see this fucntion
+
 	if (close_quotes(s) == UNCLOSED_QUOTES)
 		return (free(s), printf("Error! Unclosed quotes\n"), 0);
-	token = init_deafult_token(NULL);
-	if (!token)
+	*token = init_deafult_token(NULL);
+	if (!*token)
 		return (MALLOC_FAIL);
 	i = 0;
 	while (s[i] == ' ')
 		i++;
 	while (s[i])
 	{
-		token->quote	=	extract_quote(&s[i]);
-		i			    +=	extract_token_text(&s[i], &token);
-		token->type		=	extract_token_type(token->string);//*fix after up quote and text extraction complete
+		(*token)->quote	=	extract_quote(&s[i]);
+		i			    +=	extract_token_text(&s[i], token);
+		(*token)->type		=	extract_token_type((*token)->string);
 		if (!s[i])
 			break;
-		token->next		=	init_deafult_token(token);
-		if (!token->next)
-			return (free_tokens(token), printf("m_fail\n"), MALLOC_FAIL);
-		token = token->next;
+		(*token)->next		=	init_deafult_token(*token);
+		if (!(*token)->next)
+			return (free_tokens(*token), printf("m_fail\n"), MALLOC_FAIL);
+		(*token) = (*token)->next;
 		while (s[i] == ' ')
 			i++;
 	}
 	//*// testing poupeses
-	while (token->prev)
-		token = token->prev;
-	display_tokens(token);
+	get_first_token(token);
+	display_tokens(*token);
+	get_first_token(token);
 	//*/////////////////
 	return (1);
 }
@@ -78,16 +78,21 @@ static int	check_gaps_and_clear(char *s)// its cuz its a copy
 	return (0);
 }
 
-int	command_center(t_terminal_inputs *terminal)
+int	command_center(t_data *data)
 {
-	terminal->input = readline("terminal :");
-	add_history(terminal->input);
-	if (!terminal->input)
+	data->input = readline("terminal :");
+	data->token = NULL;
+	add_history(data->input);
+	if (!data->input)
 		return (CTRL_D);
-	if (check_gaps_and_clear(terminal->input))
-		return (free(terminal->input), 1);
-	if (!extract_token_characteristic((terminal->input), NULL))
-		return (1);
+	if (check_gaps_and_clear(data->input))// Specific Check .1
+		return (free(data->input), 1);
+	 if (!extract_token_characteristic(data->input, &data->token))
+		return (free(data->input), 1);
+	// if (!expand())
+		
 	return (0);
 	// return (0);
 }
+
+// hiamecani

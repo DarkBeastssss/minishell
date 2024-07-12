@@ -6,11 +6,17 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 00:10:30 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/11 17:45:27 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/12 19:20:59 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+void	get_first_token(t_token **token)
+{
+	while ((*token)->prev)
+		(*token) = (*token)->prev;
+}
 
 void	free_tokens(t_token *token)
 {
