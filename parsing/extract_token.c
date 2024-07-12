@@ -6,47 +6,48 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 05:12:02 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/10 19:11:59 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/11 18:52:08 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 
-void	extract_token_text_and_quote(char *s, t_token **token)
+char	extract_quote(char *s)
+{
+	if (s[0] == '\'' || s[0] == '\"')
+		return (s[0]);
+	return (0);
+}
+
+
+int	extract_token_text(char *s, t_token **token)
 {
 	int		i = 0;
-	char	sep = ' ';
+	char	sep = s[i];
 
 	if ((s[0] == '<' && s[1] == '<') || (s[0] == '>' && s[1] == '>'))
-	{
-		(*token)->string = ft_substr(s, 0, 2);
-		spaceify(&(*token)->string, 2);
-	}
+		return ((*token)->string = ft_substr(s, 0, 2), 2);
 	else if (s[0] == '|' || s[0] == '>' || s[0] == '<')
-	{
-		(*token)->string = ft_substr(s, 0 , 1);
-		spaceify(&(*token)->string, 1);
-	}
+		return ((*token)->string = ft_substr(s, 0 , 1), 1);
 	else
 	{
-		sep = s[0];
+		i++;
 		if (sep == '\'' || sep == '\"')
 		{
-			i++;
 			while (s[i + 1] != sep && s[i])
 				i++;
-			(*token)->string = ft_substr(s, 0, i);
-			spaceify(&(*token)->string, i);
+			(*token)->string = ft_substr(s, 1, i);
+			i += 2;
 		}
 		else
 		{
 			while (s[i] && !ft_strchr(" \'\"><|", s[i]))
 				i++;
 			(*token)->string = ft_substr(s, 0, i);
-			spaceify(&(*token)->string, i);
 		}
 	}
+	return (i);
 }
 
 int	extract_token_type(char *s)
@@ -72,19 +73,19 @@ int	extract_token_type(char *s)
 
 int		close_quotes(char *s)
 {
-	char	*ptr;
+	char	*quote;
 
-	ptr = NULL;
+	quote = NULL;
 
 	while (*s)
 	{
-		if (ptr == NULL && (*s == '\'' || *s == '\"'))
-			ptr = s;
-		if (s != ptr && ptr && *ptr == *s)
-			ptr = NULL;
+		if (quote == NULL && (*s == '\'' || *s == '\"'))
+			quote = s;
+		if (s != quote && quote && *quote == *s)
+			quote = NULL;
 		s++;
 	}
-	if (ptr == NULL)
+	if (quote == NULL)
 		return (1);
 	return (UNCLOSED_QUOTES);
 }
