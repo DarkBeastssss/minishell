@@ -6,7 +6,7 @@
 /*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 19:20:41 by bebuber           #+#    #+#             */
-/*   Updated: 2024/07/13 19:37:06 by bebuber          ###   ########.fr       */
+/*   Updated: 2024/07/13 20:06:18 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,4 +18,11 @@ void	execute(t_data *mini)
 {
 	count_commands(mini);
 	if (mini->cmmds)
+
+
+
+
+
+
+	
 }
