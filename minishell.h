@@ -6,7 +6,11 @@
 /*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 03:04:51 by amecani           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/07/13 18:54:51 by bebuber          ###   ########.fr       */
+=======
+/*   Updated: 2024/07/13 18:18:09 by amecani          ###   ########.fr       */
+>>>>>>> 9ea4287672fe75e9e8077e7c410d2de2cf7ed993
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +67,7 @@ typedef struct s_data
 	t_token			*token;
 }					t_data;
 
+<<<<<<< HEAD
 typedef struct s_commend
 {
 	char				**args;
@@ -75,9 +80,14 @@ typedef struct s_commend
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 int		command_center(t_data *terminal); //*/
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+=======
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+int		command_center(t_data terminal);///!*/
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+>>>>>>> 9ea4287672fe75e9e8077e7c410d2de2cf7ed993
 
 //!/////////	T O K E N	E X T R A C T I O N		//////////////!
-int		extract_token_characteristic(char *s, t_token **token);	//!
+int		extract_token_characteristic(char *s, t_token *token);	//!
 //!//////////////////////////XD///////////////////////////////////!
 int		extract_token_text(char *s, t_token **token);			//!
 int		extract_token_type(char *s);							//!
