@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 03:04:51 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/12 19:18:53 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/13 18:54:51 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,20 @@ typedef struct s_token
 typedef struct s_data
 {
 	char			*input;
+	char			**env;
+	int				exit_code;
+	t_command		*cmmds;
 	t_token			*token;
 }					t_data;
+
+typedef struct s_commend
+{
+	char				**args;
+	int					fd_in;
+	int					fd_out;
+	struct s_commend	*next;
+	struct s_commend	*prev;
+}					t_command;
 
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 int		command_center(t_data *terminal); //*/
