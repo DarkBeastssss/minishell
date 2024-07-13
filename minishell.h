@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 03:04:51 by amecani           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/07/13 18:54:51 by bebuber          ###   ########.fr       */
-=======
-/*   Updated: 2024/07/13 18:18:09 by amecani          ###   ########.fr       */
->>>>>>> 9ea4287672fe75e9e8077e7c410d2de2cf7ed993
+/*   Updated: 2024/07/13 19:35:36 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +54,14 @@ typedef struct s_token
 	struct s_token	*prev;
 }					t_token;
 
+typedef struct s_commend
+{
+	char				**args;
+	int					fd_in;
+	int					fd_out;
+	struct s_commend	*next;
+	struct s_commend	*prev;
+}					t_command;
 typedef struct s_data
 {
 	char			*input;
@@ -67,24 +71,9 @@ typedef struct s_data
 	t_token			*token;
 }					t_data;
 
-<<<<<<< HEAD
-typedef struct s_commend
-{
-	char				**args;
-	int					fd_in;
-	int					fd_out;
-	struct s_commend	*next;
-	struct s_commend	*prev;
-}					t_command;
-
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 int		command_center(t_data *terminal); //*/
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
-=======
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
-int		command_center(t_data terminal);///!*/
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
->>>>>>> 9ea4287672fe75e9e8077e7c410d2de2cf7ed993
 
 //!/////////	T O K E N	E X T R A C T I O N		//////////////!
 int		extract_token_characteristic(char *s, t_token *token);	//!
