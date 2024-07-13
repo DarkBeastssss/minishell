@@ -1,26 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   merge.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/03 02:04:41 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/13 18:20:13 by amecani          ###   ########.fr       */
+/*   Created: 2024/07/13 17:56:42 by amecani           #+#    #+#             */
+/*   Updated: 2024/07/13 17:57:55 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
-int	main(int argc, char **av)
+int	merge(char *s, t_token  *token) // replace it to doouble token pointer, so the changes happen later
 {
-	//! extern char			**environ;
-	(void)av;
-
-	if (argc != 1)
-		return (printf("Type only : './minishell' \n"));
-	while ("the program is running")
-		if (command_center(data) == CTRL_D)
-			break ;
-	return (0);
+	
 }
