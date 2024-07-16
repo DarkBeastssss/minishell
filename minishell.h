@@ -6,7 +6,7 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 03:04:51 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/13 19:35:36 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/16 12:41:26 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,11 @@ typedef struct s_data
 }					t_data;
 
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
-int		command_center(t_data *terminal); //*/
+int		command_center(t_data *terminal); 			//*/
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 
 //!/////////	T O K E N	E X T R A C T I O N		//////////////!
-int		extract_token_characteristic(char *s, t_token *token);	//!
+int		extract_token_characteristic(char *s, t_token **token);	//!
 //!//////////////////////////XD///////////////////////////////////!
 int		extract_token_text(char *s, t_token **token);			//!
 int		extract_token_type(char *s);							//!
