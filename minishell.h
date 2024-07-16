@@ -6,7 +6,7 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 03:04:51 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/16 15:27:01 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/16 21:47:07 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@
 //! Handle the case where if < << > > | is first wrong, and if not sorrounded by
 //!				a Word token wrong
 //! Specific Check .2
+
+//! In the case of a mallocation error, I should be more  speccific, and print
+//!				out that is malloc_error
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -85,16 +88,19 @@ int		close_quotes(char *s);									//!
 //!///////////////////////////////////////////////////////////////!
 
 
-//!/////////		MERGE	&&	EXPAND				//////////////!
-int		merge(t_token  **token);						//!
 //!//MERGE/MERGE/MERGE/MERGE/MERGE/MERGE/MERGE/MERGE/MERGE/MERGE//!
-//!///////////////////////////////////////////////////////////////!
+int		merge(t_token  **token);								//!
+//!//MERGE/MERGE/MERGE/MERGE/MERGE/MERGE/MERGE/MERGE/MERGE/MERGE//!
+
+//!EXPAND/EXPAND/EXPAND/EXPAND/EXPAND/EXPAND/EXPAND/EXPAND/EXPAND/!
+int	expand(char **env, t_token **token);						//!
+//!EXPAND/EXPAND/EXPAND/EXPAND/EXPAND/EXPAND/EXPAND/EXPAND/EXPAND/!
+
 
 //?/////		U T I L I T I E S		//////?
 t_token	*init_deafult_token(t_token *token);//?
 void	free_tokens(t_token *token);		//?
-char	*not_strchr(char *s, char ignore);	//?
-void	spaceify(char **s, int len);		//?
+int		integer_strchr(char *s, char find);	//?
 void	get_first_token(t_token **token);	//?
 void	display_tokens(t_token *token);		//?
 //?///////////////////////////////////////////?

@@ -6,7 +6,7 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 00:10:30 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/16 14:36:58 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/16 21:46:45 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,27 +50,6 @@ void	free_tokens(t_token *token)
 	}
 }
 
-void spaceify(char **s, int len)
-{
-	while (len)
-	{
-		**s = ' ';
-		(*s)++;
-		len--;
-	}
-}
-
-char *not_strchr(char *s, char ignore)
-{
-	while (*s)
-	{
-		if (*s != ignore)
-			return (s);
-		s++;
-	}
-	return (NULL);
-}
-
 t_token	*init_deafult_token(t_token *token)
 {
 	t_token	*new;
@@ -86,4 +65,14 @@ t_token	*init_deafult_token(t_token *token)
 	new->prev	= token;
 	return (new);
 	//! okay so nvm without me initialising all these into NULL and 0, they automatically go like that (remove later the lines for opt)
+}
+
+int	integer_strchr(char *s, char find)
+{
+	int	i;
+
+	i = 0;
+	while (s[i] != find && s[i])
+		i++;
+	return (i);
 }
