@@ -6,28 +6,11 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 02:04:44 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/16 12:43:42 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/16 15:32:31 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-void	display_tokens(t_token *token)
-{
-	printf("\n");
-	while (token)
-	{
-		printf("string :	%s\n", token->string);
-		printf("type :		%d\n", token->type);
-		if (!token->quote)
-			printf("quote_type :	none\n");
-		else
-			printf("quote_type :	%c\n", token->quote);
-		printf("\n|||||||||||||||||\n\n");
-		token = token->next;
-	}
-	printf("NULL\n");
-}
 
 int	extract_token_characteristic(char *s, t_token **token)
 {//! doesnt handle "" and '' (empty quotes)
@@ -55,11 +38,6 @@ int	extract_token_characteristic(char *s, t_token **token)
 		while (s[i] == ' ')
 			i++;
 	}
-	//*// testing poupeses
-	get_first_token(token);
-	display_tokens(*token);
-	get_first_token(token);
-	//*/////////////////
 	return (1);
 }
 
@@ -87,12 +65,12 @@ int	command_center(t_data *data)
 		return (CTRL_D);
 	if (check_gaps_and_clear(data->input))// Specific Check .1
 		return (free(data->input), 1);
-	 if (!extract_token_characteristic(data->input, &data->token))
+	if (!extract_token_characteristic(data->input, &data->token))
 		return (free(data->input), 1);
-	// if (!expand())
-		
+	// if (!expand(&data->token))
+	// 	return (0); //! fix this later for mallocation error
+	if (!merge(&data->token))
+		return (free(data->input),1); //! fix this later for mallocation error
 	return (0);
 	// return (0);
 }
-
-// hiamecani

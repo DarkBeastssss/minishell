@@ -6,7 +6,7 @@
 #    By: amecani <amecani@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/06 21:57:45 by amecani           #+#    #+#              #
-#    Updated: 2024/07/07 23:40:04 by amecani          ###   ########.fr        #
+#    Updated: 2024/07/16 15:24:59 by amecani          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ LIBFT = libft/libft.a
 CFLAGS = -Wall -Werror -Wextra -g3
 
 SOURCES =				minishell.c \
-$(addprefix parsing/,	extract_token.c parse.c utilities.c)
+$(addprefix parsing/,	extract_token.c parse.c utilities.c expand_and_merge.c)
 
 OBJECTS = $(SOURCES:.c=.o)
 

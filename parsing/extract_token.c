@@ -6,7 +6,7 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 05:12:02 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/11 18:52:08 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/16 14:58:31 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,9 @@ int	extract_token_text(char *s, t_token **token)
 			(*token)->string = ft_substr(s, 0, i);
 		}
 	}
+	if (s[i] && !ft_strchr(" ><|", s[i]))
+		(*token)->merge_with_next = true;
+	printf("merge? = %d", (*token)->merge_with_next);
 	return (i);
 }
 

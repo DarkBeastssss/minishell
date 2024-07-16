@@ -6,11 +6,28 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 00:10:30 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/12 19:20:59 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/16 14:36:58 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+void	display_tokens(t_token *token)
+{
+	printf("\n");
+	while (token)
+	{
+		printf("string :	%s\n", token->string);
+		printf("type :		%d\n", token->type);
+		if (!token->quote)
+			printf("quote_type :	none\n");
+		else
+			printf("quote_type :	%c\n", token->quote);
+		printf("\n|||||||||||||||||\n\n");
+		token = token->next;
+	}
+	printf("NULL\n");
+}
 
 void	get_first_token(t_token **token)
 {

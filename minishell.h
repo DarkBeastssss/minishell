@@ -6,7 +6,7 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 03:04:51 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/16 12:41:26 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/16 15:27:01 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,9 @@ typedef struct s_data
 	t_token			*token;
 }					t_data;
 
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
-int		command_center(t_data *terminal); 			//*/
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+int		command_center(t_data *terminal);//*/
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 
 //!/////////	T O K E N	E X T R A C T I O N		//////////////!
 int		extract_token_characteristic(char *s, t_token **token);	//!
@@ -84,18 +84,19 @@ char	extract_quote(char *s);									//!
 int		close_quotes(char *s);									//!
 //!///////////////////////////////////////////////////////////////!
 
+
+//!/////////		MERGE	&&	EXPAND				//////////////!
+int		merge(t_token  **token);						//!
+//!//MERGE/MERGE/MERGE/MERGE/MERGE/MERGE/MERGE/MERGE/MERGE/MERGE//!
+//!///////////////////////////////////////////////////////////////!
+
 //?/////		U T I L I T I E S		//////?
 t_token	*init_deafult_token(t_token *token);//?
 void	free_tokens(t_token *token);		//?
 char	*not_strchr(char *s, char ignore);	//?
 void	spaceify(char **s, int len);		//?
 void	get_first_token(t_token **token);	//?
+void	display_tokens(t_token *token);		//?
 //?///////////////////////////////////////////?
 
 #endif
-
-//! hi$user
-//
-//
-//
-// hello<<>"nah"'cuh'"again"
