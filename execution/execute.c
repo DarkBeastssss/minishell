@@ -6,7 +6,7 @@
 /*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 19:20:41 by bebuber           #+#    #+#             */
-/*   Updated: 2024/07/17 21:19:37 by bebuber          ###   ########.fr       */
+/*   Updated: 2024/07/19 12:51:07 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,19 +43,19 @@ int	builtin_commands(char **args, t_data *data)
 	result = 0;
 	command = args[0];
 	if (!ft_strcmp(command, "cd"))
-		result = ft_cd(args, data->env);
+		result = cd(args, data->env);
 	else if (!ft_strcmp(command, "echo"))
-		result = ft_echo(args);
+		result = echo(args);
 	else if (!ft_strcmp(command, "pwd"))
-		result = ft_pwd();
+		result = pwd();
 	else if (!ft_strcmp(command, "export"))
-		result = ft_export(args, &data->env);
+		result = export(args, &data->env);
 	else if (!ft_strcmp(command, "unset"))
-		result = ft_unset(args, &data->env);
+		result = unset(args, &data->env);
 	else if (!ft_strcmp(command, "env"))
-		result = ft_env(data->env);
+		result = env(data->env, args);
 	else if (!ft_strcmp(command, "exit"))
-		result = ft_exit(data);
+		exit(data);
 	return (result);
 }
 
@@ -69,4 +69,13 @@ void	execute(t_data *mini)
 	{
 		execute_multiple_commands(mini);
 	}
+}
+
+void	print_error(char *command, char *arg, char *error)
+{
+	ft_putstr_fd(command, 2);
+	ft_putstr_fd(": ", 2);
+	ft_putstr_fd(arg, 2);
+	ft_putstr_fd(": ", 2);
+	ft_putendl_fd(error, 2);
 }

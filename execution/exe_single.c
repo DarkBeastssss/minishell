@@ -6,13 +6,13 @@
 /*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 20:24:41 by bebuber           #+#    #+#             */
-/*   Updated: 2024/07/17 18:03:32 by bebuber          ###   ########.fr       */
+/*   Updated: 2024/07/19 10:26:07 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	single_command(t_commend *com, t_list *envl)
+int	single_command(t_command *com, t_list *envl)
 {
 	int		status;
 	char	*path;
