@@ -6,7 +6,7 @@
 /*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:06:09 by bebuber           #+#    #+#             */
-/*   Updated: 2024/07/11 15:40:52 by bebuber          ###   ########.fr       */
+/*   Updated: 2024/07/17 21:01:43 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	echo(char **args)
 	n_flag = 0;
 	while (args[i])
 	{
-		if (!ft_strncmp(args[i], "-n", 2))
+		if (!ft_strcmp(args[i], "-n"))
 		{
 			n_flag = 1;
 			i++;
