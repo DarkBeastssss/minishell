@@ -6,7 +6,7 @@
 /*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:41:01 by bebuber           #+#    #+#             */
-/*   Updated: 2024/07/19 14:52:20 by bebuber          ###   ########.fr       */
+/*   Updated: 2024/07/19 16:22:20 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int	add_new_env(char *key, char *value, char ***env)
 int	update_env(char *key, char *value, char ***env)
 {
 	int		i;
+	int		ret;
 
 	i = 0;
 	while ((*env)[i])
@@ -82,7 +83,8 @@ int	update_env(char *key, char *value, char ***env)
 		}
 		i++;
 	}
-	return (add_new_env(key, value, env));
+	ret = add_new_env(key, value, env);
+	return (ret);
 }
 
 int	set_address(char **env)

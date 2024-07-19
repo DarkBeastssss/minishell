@@ -6,7 +6,7 @@
 /*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 18:34:57 by bebuber           #+#    #+#             */
-/*   Updated: 2024/07/19 12:51:02 by bebuber          ###   ########.fr       */
+/*   Updated: 2024/07/19 15:56:31 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,23 @@ int	env(char **env, char **args)
 	i = 1;
 	while (args[i])
 	{
-		if (i > 1)
+		if (!ft_strchr(args[i], '=') || args[i][0] == '=')
 		{
 			print_error("env", args[i], "No such file or directory");
 			return (1);
 		}
-		i++;
+		else if (ft_strchr(args[i], '='))
+			i++;
 	}
 	i = 0;
 	while (env[i])
 	{
-		ft_putendl_fd(env[i], 1);
+		if (ft_strchr(env[i], '='))
+			ft_putendl_fd(env[i], 1);
 		i++;
 	}
+	i = 1;
+	while (args[i])
+		ft_putendl_fd(args[i], 1);
 	return (0);
 }
-
