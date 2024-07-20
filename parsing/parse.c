@@ -6,7 +6,7 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 02:04:44 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/16 15:32:31 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/20 14:29:06 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,11 @@ int	command_center(t_data *data)
 		return (free(data->input), 1);
 	if (!extract_token_characteristic(data->input, &data->token))
 		return (free(data->input), 1);
-	// if (!expand(&data->token))
-	// 	return (0); //! fix this later for mallocation error
+	get_first_token(&data->token);
+	if (!expand(&data->token))
+		return (0); //! fix this later for mallocation error
 	if (!merge(&data->token))
-		return (free(data->input),1); //! fix this later for mallocation error
+		return (free(data->input),1);
 	return (0);
 	// return (0);
 }

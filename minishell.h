@@ -6,7 +6,7 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 03:04:51 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/16 21:47:07 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/19 17:42:17 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,13 @@
 
 //! In the case of a mallocation error, I should be more  speccific, and print
 //!				out that is malloc_error
+
+//! Double dollar sign weird interpretation, check it in end
+
+//! extern char			**environ;
+
+//! Add in parsing later a ptr to first token, so the get_first_token doesnt 
+//!				have to be called multiple times
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -74,6 +81,8 @@ typedef struct s_data
 	t_token			*token;
 }					t_data;
 
+// Remove all the env from the fucntions and just declare it inside
+
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 int		command_center(t_data *terminal);//*/
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
@@ -93,7 +102,7 @@ int		merge(t_token  **token);								//!
 //!//MERGE/MERGE/MERGE/MERGE/MERGE/MERGE/MERGE/MERGE/MERGE/MERGE//!
 
 //!EXPAND/EXPAND/EXPAND/EXPAND/EXPAND/EXPAND/EXPAND/EXPAND/EXPAND/!
-int	expand(char **env, t_token **token);						//!
+int		expand(t_token **token);						//!
 //!EXPAND/EXPAND/EXPAND/EXPAND/EXPAND/EXPAND/EXPAND/EXPAND/EXPAND/!
 
 
