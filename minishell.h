@@ -6,12 +6,21 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 03:04:51 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/19 17:42:17 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/21 18:33:17 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+//! Fix cases :
+
+// $$
+
+// issue of US.UTF-8 still persists
+
 //? The ammount of .o files is annoying, perhaps create a sepparate folder and
 //?				make the makefile ´put them all there instead
+
+//! ooooh fuck I also have to do in lexing so if it picks up \" or \', idk im not
+	//!sure if I have to handle it
 
 //! Handle the case where if < << > > | is first wrong, and if not sorrounded by
 //!				a Word token wrong
@@ -52,6 +61,7 @@ typedef enum s_type
 	OUT,//*4
 	APPEND,//*5
 	ERR,//*6
+	EMPTY,//*7
 }					t_type;
 
 typedef struct s_token
@@ -81,7 +91,6 @@ typedef struct s_data
 	t_token			*token;
 }					t_data;
 
-// Remove all the env from the fucntions and just declare it inside
 
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 int		command_center(t_data *terminal);//*/

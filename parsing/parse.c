@@ -6,18 +6,18 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 02:04:44 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/20 14:29:06 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/21 18:36:55 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 int	extract_token_characteristic(char *s, t_token **token)
-{//! doesnt handle "" and '' (empty quotes)
+{
 	int		i;
 
 	if (close_quotes(s) == UNCLOSED_QUOTES)
-		return (free(s), printf("Error! Unclosed quotes\n"), 0);
+		return (printf("Error! Unclosed quotes\n"), 0);
 	*token = init_deafult_token(NULL);
 	if (!*token)
 		return (MALLOC_FAIL);
@@ -73,5 +73,4 @@ int	command_center(t_data *data)
 	if (!merge(&data->token))
 		return (free(data->input),1);
 	return (0);
-	// return (0);
 }

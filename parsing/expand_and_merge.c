@@ -6,7 +6,7 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 12:55:42 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/20 14:29:34 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/21 18:21:37 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,34 @@
 static int	should_it_merge(t_token **token)
 {
 	char	*joint;
-	t_token	*tmp;
+	const t_token	*tmp = (*token);
 
-	joint = ft_strjoin((*token)->string, (*token)->next->string);
-	if (!joint)
-		return (MALLOC_FAIL);
-	(*token)->merge_with_next = (*token)->next->merge_with_next;
-	free((*token)->string);
-	free((*token)->next->string);
-	(*token)->string = joint;
+	//? Take next token into first
+	//? Then work with the free string or to where what
 
-	tmp = (*token)->next->next;
-	free((*token)->next);
-	(*token)->next = tmp;
-	return (1);
+	(*token) = (*token)->next;
+	(*token)->prev = tmp->prev;
+	if (tmp->prev)
+		tmp->prev->next = (*token);
+
+	if (tmp->string && !tmp->next->string)
+		tmp->next->string = tmp->string;
+	else if (tmp->string && tmp->next->string)
+	{
+		joint = ft_strjoin(tmp->string, tmp->next->string);
+		free(tmp->string);
+		free(tmp->next->string);
+		if (!joint)
+			return (MALLOC_FAIL);
+		tmp->next->string = joint;
+	}
+
+	return (free((t_token *)tmp), 1);
 }
 
+
 int	merge(t_token  **token)
+// After merge the quote var, kinda becomes useless and uncorrect
 //? Merge soul reason that exists, is that I did parsing wrong and I aint going to fix it
 {
 	get_first_token(token);
@@ -76,9 +87,9 @@ char	*get_content(char *search)
 			if (environ[array][i + 1] == '=' && \
 			((search[i + 1] == '\0') || \
 			(search[i + 1] == ' ') || \
+			(search[i + 1] == '\'') || \
 			(search[i + 1] == '$')) )
 			return (&environ[array][i + 2]);
-			// return (ft_substr(&environ[array][i + 2], 0, ft_strlen(&environ[array][i + 2])));
 			i++;
 		}
 		array++;
@@ -120,7 +131,7 @@ char *expansion(char *joint, char *content, char *s)
 		if (s == first_case)
 		{
 			s++;
-			while (*s != '$' && *s != ' ' && *s != '\0')
+			while (*s != '$' && *s != ' ' && *s != '\0' && *s != '\'')
 				s++;
 			while (content && *content)
 			{
@@ -135,15 +146,16 @@ char *expansion(char *joint, char *content, char *s)
 		joint++;
 		s++;
 	}
+	if (!content && !*first_joint)
+		return (free((char *)(first_s)), NULL);
 	return (free((char *)(first_s)), (char *)first_joint);
 }//! Incase it doesnt free correctly, put the the (char *) outside
 
 int	expand(t_token **token)
+// if $(var) can be sepperated with : space, ' \"
 {
 	char *exp_content;
 
-
- 
 	get_first_token(token);
 	while ((*token))
 	{

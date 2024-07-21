@@ -6,7 +6,7 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 00:10:30 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/16 21:46:45 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/21 15:17:50 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	display_tokens(t_token *token)
 			printf("quote_type :	none\n");
 		else
 			printf("quote_type :	%c\n", token->quote);
+		printf("should_merge : %d\n", token->merge_with_next);
 		printf("\n|||||||||||||||||\n\n");
 		token = token->next;
 	}
@@ -36,7 +37,9 @@ void	get_first_token(t_token **token)
 }
 
 void	free_tokens(t_token *token)
-{
+{ // fix free tokens at some point
+// do get_first_token
+// forgot do I need to give the ptr of the ptr?
 	t_token	*temp;
 
 	while (token)
@@ -54,17 +57,11 @@ t_token	*init_deafult_token(t_token *token)
 {
 	t_token	*new;
 
-	new = malloc(sizeof(t_token));
+	new = ft_calloc(sizeof(t_token), 1);
 	if (!new)
 		return (printf("m_error\n"),  NULL);
-	// new->type = NULL; //! For Optimisation, even if you dont declate this here it
-	// 				  //! will automatically be put as 0 (WORD)
-	new->string	= NULL;
-	new->quote	= 0;
-	new->next	= NULL;
 	new->prev	= token;
 	return (new);
-	//! okay so nvm without me initialising all these into NULL and 0, they automatically go like that (remove later the lines for opt)
 }
 
 int	integer_strchr(char *s, char find)
