@@ -6,7 +6,7 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 05:12:02 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/21 15:24:17 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/21 19:50:18 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ bool	should_merge(char c)
 	return (false);
 }
 
-int	extract_token_text(char *s, t_token **token) //$USER"" ''gerttet""
+int	extract_token_text(char *s, t_token **token)
 {
 	int		i = 0;
-	char	sep = s[i];
+	const char	sep = s[i];
 
 	if (s[0] == '|' || s[0] == '>' || s[0] == '<')
 		return ((*token)->string = ft_substr(s, 0 , 1),	1);
@@ -50,7 +50,7 @@ int	extract_token_text(char *s, t_token **token) //$USER"" ''gerttet""
 		}
 		else
 		{
-			while (s[i] && !ft_strchr(" \'\"><|", s[i]))
+			while (s[i] && !not_a_var_char(s[i]))
 				i++;
 			(*token)->string = ft_substr(s, 0, i);
 		}

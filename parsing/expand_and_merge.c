@@ -6,7 +6,7 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 12:55:42 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/21 18:21:37 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/21 19:15:58 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,13 @@ int	merge(t_token  **token)
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+bool	not_a_var_char(char c)
+{
+	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_' || (c >= '0' && c <= '9'))
+		return (false);
+	return (true);
+}
+
 char	*get_content(char *search)
 {
 	extern char			**environ;
@@ -84,11 +91,7 @@ char	*get_content(char *search)
 		i = 0;
 		while (environ[array][i] == search[i])
 		{
-			if (environ[array][i + 1] == '=' && \
-			((search[i + 1] == '\0') || \
-			(search[i + 1] == ' ') || \
-			(search[i + 1] == '\'') || \
-			(search[i + 1] == '$')) )
+			if (environ[array][i + 1] == '=' && not_a_var_char(search[i + 1]))
 			return (&environ[array][i + 2]);
 			i++;
 		}

@@ -6,13 +6,12 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 03:04:51 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/21 18:33:17 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/21 19:54:40 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 //! Fix cases :
 
-// $$
 
 // issue of US.UTF-8 still persists
 
@@ -121,6 +120,7 @@ void	free_tokens(t_token *token);		//?
 int		integer_strchr(char *s, char find);	//?
 void	get_first_token(t_token **token);	//?
 void	display_tokens(t_token *token);		//?
+bool	not_a_var_char(char c);				//?
 //?///////////////////////////////////////////?
 
 #endif
