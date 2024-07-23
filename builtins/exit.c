@@ -6,12 +6,11 @@
 /*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 18:35:05 by bebuber           #+#    #+#             */
-/*   Updated: 2024/07/19 17:25:34 by bebuber          ###   ########.fr       */
+/*   Updated: 2024/07/23 10:21:53 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
 
 void	print_error(char *command, char *arg, char *error)
 {
@@ -22,4 +21,31 @@ void	print_error(char *command, char *arg, char *error)
 	ft_putendl_fd(error, 2);
 }
 
-void	exit()
+int	ft_exit(t_command *cmmds, t_data *data)
+{
+	int		i;
+
+	i = 0;
+	if (cmmds->args[1])
+	{
+		if (cmmds->args[2])
+		{
+			print_error("exit", cmmds->args[1], "too many arguments");
+			return (1);
+		}
+		while (cmmds->args[1][i])
+		{
+			if (i == 0 && cmmds->args[1][i] == '-')
+				i++;
+			if (!ft_isdigit(cmmds->args[1][i]))
+			{
+				print_error("exit", \
+				cmmds->args[1], "numeric argument required");
+				exit(255);
+			}
+			i++;
+		}
+		data->exit_code = (ft_atoi(cmmds->args[1]) % 256);
+	}
+	exit(data->exit_code);
+}

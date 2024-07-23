@@ -6,7 +6,7 @@
 /*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 19:20:41 by bebuber           #+#    #+#             */
-/*   Updated: 2024/07/19 17:49:18 by bebuber          ###   ########.fr       */
+/*   Updated: 2024/07/23 10:30:10 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,48 +25,39 @@ int	count_commands(t_command *current)
 	return (count);
 }
 
-int	ft_strcmp(const char *s1, const char *s2)
-{
-	int				i;
-
-	i = 0;
-	while (s1[i] && s2[i] && s1[i] == s2[i])
-		i++;
-	return (s1[i] - s2[i]);
-}
-
 int	builtin_commands(char **args, t_data *data)
 {
 	char	*command;
-	int		result;
+	int		err_stat;
 
-	result = 0;
+	err_stat = -1;
 	command = args[0];
 	if (!ft_strcmp(command, "cd"))
-		result = cd(args, data->env);
+		err_stat = cd(args, data->env);
 	else if (!ft_strcmp(command, "echo"))
-		result = echo(args);
+		err_stat = echo(args);
 	else if (!ft_strcmp(command, "pwd"))
-		result = pwd();
+		err_stat = pwd(args);
 	else if (!ft_strcmp(command, "export"))
-		result = export(args, &data->env);
+		err_stat = export(args, &data->env);
 	else if (!ft_strcmp(command, "unset"))
-		unset(args, &data->env);
+		err_stat = unset(args, &data->env);
 	else if (!ft_strcmp(command, "env"))
-		result = env(data->env, args);
+		err_stat = env(data->env, args);
 	else if (!ft_strcmp(command, "exit"))
-		exit(data);
-	return (result);
+		err_stat = ft_exit(args, data);
+	else
+		return (1);
+	if (err_stat != -1)
+		data->exit_code = err_stat;
+	return (0);
 }
 
-void	execute(t_data *mini)
+void	execute(t_data *data)
 {
-	if (count_commands(mini->cmmds) == 1)
-	{
-		execute_single_command(mini);
-	}
+	alloc_env(&data->env);
+	if (count_commands(data->cmmds) == 1)
+		execute_single_command(data);
 	else
-	{
-		execute_multiple_commands(mini);
-	}
+		execute_multiple_commands(data);
 }

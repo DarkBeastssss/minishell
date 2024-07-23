@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 03:04:51 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/13 19:35:36 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/22 18:41:57 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,30 @@ char	*not_strchr(char *s, char ignore);	//?
 void	spaceify(char **s, int len);		//?
 void	get_first_token(t_token **token);	//?
 //?///////////////////////////////////////////?
+
+
+// builtins
+int cd(char **args, char **env);
+int echo(char **args);
+int pwd(char **args);
+int	export(char **args, char ***env);
+int	unset(char **args, char ***env);
+int env(char **env, char **args);
+int set_address(char ***env);
+int update_env(char *key, char *value, char ***env);
+int add_new_env(char *key, char *value, char ***env);
+char *get_env_value(char *key, char **env);
+void printexport(char **env);
+void remove_env(char ***env, int loc);
+int is_valid_env_name(char *name, char **env);
+int main(int argc, char **argv, char **envp);
+int builtin_commands(char **args, t_data *data);
+void print_error(char *command, char *arg, char *error);
+int	ft_strcmp(const char *s1, const char *s2);
+int	ft_exit(t_command *args, t_data *data);
+void	free_env(char ***env);
+// execution
+
 
 #endif
 
