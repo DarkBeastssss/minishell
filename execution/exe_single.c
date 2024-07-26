@@ -6,7 +6,7 @@
 /*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 20:24:41 by bebuber           #+#    #+#             */
-/*   Updated: 2024/07/26 17:58:13 by bebuber          ###   ########.fr       */
+/*   Updated: 2024/07/26 21:13:25 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*find_path(char **env, char *command)
 	all_paths = get_env_value("PATH", env);
 	if (!all_paths)
 	{
-		print_error("minishell", command, "No such file or directory");
+		print_error("minishell", command, "no such file or directory");
 		return (data->exit_code = 127, NULL);
 	}
 	paths = ft_split(all_paths, ':');
@@ -37,7 +37,7 @@ char	*find_path(char **env, char *command)
 		free(path);
 		i++;
 	}
-	print_error("minishell", command, "Command not found");
+	print_error("minishell", command, "command not found");
 	return (free_arr(paths), NULL);
 }
 
@@ -55,7 +55,7 @@ void	fork_the_command(t_data *data, pid_t *pid)
 	}
 	else if (*pid < 0)
 	{
-		ft_putstr_fd("minishell: fork failed", 2);
+		ft_putendl_fd("minishell: fork failed", 2);
 		data->exit_code = 1;
 	}
 }
