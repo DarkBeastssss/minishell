@@ -6,7 +6,7 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 00:10:30 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/21 15:17:50 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/24 14:17:29 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,13 @@ int	integer_strchr(char *s, char find)
 	int	i;
 
 	i = 0;
-	while (s[i] != find && s[i])
+	if (!s)
+		return (-1);
+	while (s[i])
+	{
+		if(s[i] == find)
+			return (i);
 		i++;
-	return (i);
+	}
+	return (-1);
 }

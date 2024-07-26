@@ -6,7 +6,7 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 02:04:44 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/21 18:36:55 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/24 15:17:46 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,14 @@ int	extract_token_characteristic(char *s, t_token **token)
 		(*token)->quote	=	extract_quote(&s[i]);
 		i			    +=	extract_token_text(&s[i], token);
 		(*token)->type		=	extract_token_type((*token)->string);
+		while (s[i] == ' ')
+			i++;
 		if (!s[i])
 			break;
 		(*token)->next		=	init_deafult_token(*token);
 		if (!(*token)->next)
 			return (free_tokens(*token), printf("m_fail\n"), MALLOC_FAIL);
 		*token = (*token)->next;
-		while (s[i] == ' ')
-			i++;
 	}
 	return (1);
 }
