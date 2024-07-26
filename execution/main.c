@@ -5,13 +5,10 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/19 17:56:23 by bebuber           #+#    #+#             */
-/*   Updated: 2024/07/23 10:23:34 by bebuber          ###   ########.fr       */
+/*   Created: 2024/07/26 17:41:20 by bebuber           #+#    #+#             */
+/*   Updated: 2024/07/26 17:41:47 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "../minishell.h"
-// #include "mini.h"
 
 int	main(int argc, char **argv, char **envp)
 {

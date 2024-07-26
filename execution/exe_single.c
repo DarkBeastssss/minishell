@@ -6,13 +6,13 @@
 /*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 20:24:41 by bebuber           #+#    #+#             */
-/*   Updated: 2024/07/26 21:13:25 by bebuber          ###   ########.fr       */
+/*   Updated: 2024/07/26 22:31:59 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*find_path(char **env, char *command)
+char	*find_path(char **env, char *command, t_data *data)
 {
 	char	*path;
 	char	**paths;
@@ -46,12 +46,9 @@ void	fork_the_command(t_data *data, pid_t *pid)
 	*pid = fork();
 	if (*pid == 0)
 	{
-		if (execve(find_path(data->env, data->cmmds->args[0]), \
+		if (execve(find_path(data->env, data->cmmds->args[0], data), \
 		data->cmmds->args, data->env) == -1)
-		{
-			data->exit_code = 127;
-			exit(127);
-		}
+			exit((data->exit_code = 127));
 	}
 	else if (*pid < 0)
 	{
