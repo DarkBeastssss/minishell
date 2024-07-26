@@ -6,7 +6,7 @@
 /*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 20:24:41 by bebuber           #+#    #+#             */
-/*   Updated: 2024/07/26 17:33:16 by bebuber          ###   ########.fr       */
+/*   Updated: 2024/07/26 17:58:13 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,6 @@ char	*find_path(char **env, char *command)
 	return (free_arr(paths), NULL);
 }
 
-void	close_fds(int *fd)
-{
-	close(fd[0]);
-	close(fd[1]);
-}
-
 void	fork_the_command(t_data *data, pid_t *pid)
 {
 	*pid = fork();
@@ -66,6 +60,28 @@ void	fork_the_command(t_data *data, pid_t *pid)
 	}
 }
 
+void	restore_and_close_fds(int *fd)
+{
+	dup2(fd[0], 0);
+	close(fd[0]);
+	dup2(fd[1], 1);
+	close(fd[1]);
+}
+
+void	redirect_fds(t_command *cmmd)
+{
+	if (cmmd->fd_in != -1)
+	{
+		dup2(cmmd->fd_in, 0);
+		close(cmmd->fd_in);
+	}
+	if (cmmd->fd_out != -1)
+	{
+		dup2(cmmd->fd_out, 1);
+		close(cmmd->fd_out);
+	}
+}
+
 int	execute_single_command(t_data *data)
 {
 	int		status;
@@ -74,21 +90,15 @@ int	execute_single_command(t_data *data)
 
 	fd[0] = dup(0);
 	fd[1] = dup(1);
-	if (data->cmmds->fd_in != -1)
+	redirect_fds(data->cmmds);
+	if (builtin_commands(data->cmmds->args, data) == 0)
 	{
-		dup2(data->cmmds->fd_in, 0);
-		close(data->cmmds->fd_in);
-	}
-	if (data->cmmds->fd_out != -1)
-	{
-		dup2(data->cmmds->fd_out, 1);
-		close(data->cmmds->fd_out);
+		restore_and_close_fds(fd);
+		return (0);
 	}
 	fork_the_command(data, &pid);
 	waitpid(pid, &status, 0);
-	dup2(fd[0], 0);
-	dup2(fd[1], 1);
-	close_fds(fd);
+	restore_and_close_fds(fd);
 	if (WIFEXITED(status))
 		data->exit_code = WEXITSTATUS(status);
 	return (0);
