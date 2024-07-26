@@ -6,7 +6,7 @@
 /*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 18:35:05 by bebuber           #+#    #+#             */
-/*   Updated: 2024/07/23 10:21:53 by bebuber          ###   ########.fr       */
+/*   Updated: 2024/07/26 17:28:14 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	ft_exit(t_command *cmmds, t_data *data)
 			{
 				print_error("exit", \
 				cmmds->args[1], "numeric argument required");
-				exit(255);
+				exit((data->exit_code = 255), 255);
 			}
 			i++;
 		}

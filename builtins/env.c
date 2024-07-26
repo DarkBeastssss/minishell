@@ -6,24 +6,24 @@
 /*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 18:34:57 by bebuber           #+#    #+#             */
-/*   Updated: 2024/07/23 10:20:52 by bebuber          ###   ########.fr       */
+/*   Updated: 2024/07/23 13:42:05 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	free_env(char ***env)
+void	free_arr(char **env)
 {
 	int	i;
 
 	i = 0;
-	while ((*env)[i])
+	while (env[i])
 	{
-		free((*env)[i]);
+		free(env[i]);
 		i++;
 	}
-	free (*env);
-	*env = NULL;
+	free (env);
+	env = NULL;
 }
 
 int	add_new_env(char *key, char *value, char ***env)
@@ -51,7 +51,7 @@ int	add_new_env(char *key, char *value, char ***env)
 		return (1);
 	new_env[j + 1] = NULL;
 	printf("new_env[j]: %s\n", new_env[j]);
-	free_env(env);
+	free_arr(*env);
 	return (*env = new_env, 0);
 }
 
