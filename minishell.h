@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 03:04:51 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/21 19:54:40 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/27 13:14:27 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,13 @@ typedef struct s_commend
 	struct s_commend	*next;
 	struct s_commend	*prev;
 }					t_command;
+
 typedef struct s_data
 {
 	char			*input;
 	char			**env;
+	int				**fd;
+	pid_t			*pid;
 	int				exit_code;
 	t_command		*cmmds;
 	t_token			*token;
@@ -122,5 +125,43 @@ void	get_first_token(t_token **token);	//?
 void	display_tokens(t_token *token);		//?
 bool	not_a_var_char(char c);				//?
 //?///////////////////////////////////////////?
+
+
+////////////// builtins //////////////
+//----> cd.c
+int		cd(char **args, char **env);
+char	*get_env_value(char *key, char **env);
+//----> echo.c
+int		echo(char **args);
+//----> env.c
+int		env(char **env, char **args);
+int		update_env(char *key, char *value, char ***env);
+int		add_new_env(char *key, char *value, char ***env);
+void	free_arr(char **env);
+//----> exit.c
+int		ft_exit(t_command *cmmds, t_data *data);
+void	print_error(char *command, char *arg, char *error);
+//----> export.c
+int		export(char **args, char ***env);
+//----> pwd.c
+int		pwd(char **args);
+//----> unset.c
+int		unset(char **env, char ***args);
+
+////////////// execution //////////////
+//----> execute.c
+void	execute(t_data *data);
+int		builtin_commands(char **args, t_data *data);
+int		alloc_env(char ***env);
+//----> exe_single.c
+int		execute_single_command(t_data *data);
+char	*find_path(char **env, char *command, t_data *data);
+//----> exe_multiple.c
+int		execute_multiple_commands(t_data *data);
+//----> utils.c
+void	free_all_pipes(int **fd, pid_t *pid, int nb_cmds);
+void	close_all_pipes(int **fd, int nb_cmds);
+int		count_commands(t_command *current);
+int		ft_strcmp(const char *s1, const char *s2);
 
 #endif
