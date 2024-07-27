@@ -6,7 +6,7 @@
 /*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 18:35:05 by bebuber           #+#    #+#             */
-/*   Updated: 2024/07/26 17:28:14 by bebuber          ###   ########.fr       */
+/*   Updated: 2024/07/27 13:54:15 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,31 +21,31 @@ void	print_error(char *command, char *arg, char *error)
 	ft_putendl_fd(error, 2);
 }
 
-int	ft_exit(t_command *cmmds, t_data *data)
+int	ft_exit(char **args, t_data *data)
 {
 	int		i;
 
 	i = 0;
-	if (cmmds->args[1])
+	if (args[1])
 	{
-		if (cmmds->args[2])
+		if (args[2])
 		{
-			print_error("exit", cmmds->args[1], "too many arguments");
+			print_error("exit", args[1], "too many arguments");
 			return (1);
 		}
-		while (cmmds->args[1][i])
+		while (args[1][i])
 		{
-			if (i == 0 && cmmds->args[1][i] == '-')
+			if (i == 0 && args[1][i] == '-')
 				i++;
-			if (!ft_isdigit(cmmds->args[1][i]))
+			if (!ft_isdigit(args[1][i]))
 			{
-				print_error("exit", \
-				cmmds->args[1], "numeric argument required");
-				exit((data->exit_code = 255), 255);
+				print_error("exit", args[1], "numeric argument required");
+				(data->exit_code = 255);
+				exit(255);
 			}
 			i++;
 		}
-		data->exit_code = (ft_atoi(cmmds->args[1]) % 256);
+		data->exit_code = (ft_atoi(args[1]) % 256);
 	}
 	exit(data->exit_code);
 }

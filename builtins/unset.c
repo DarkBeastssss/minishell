@@ -6,7 +6,7 @@
 /*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 18:35:19 by bebuber           #+#    #+#             */
-/*   Updated: 2024/07/20 18:46:32 by bebuber          ###   ########.fr       */
+/*   Updated: 2024/07/27 13:58:24 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,18 +56,18 @@ int	is_valid_env_name(char *name, char **env)
 	return (0);
 }
 
-int	unset(char **env, char ***args)
+int	unset(char ***env, char **args)
 {
 	int		i;
 	int		loc;
 
 	i = 1;
 	loc = 0;
-	while ((*args)[i])
+	while (args[i])
 	{
-		loc = is_valid_env_name((*args)[i], env);
+		loc = is_valid_env_name(args[i], (*env));
 		if (loc)
-			remove_env(&env, loc);
+			remove_env(env, loc);
 		i++;
 	}
 	ft_putchar_fd('\n', 1);

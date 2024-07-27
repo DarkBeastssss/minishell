@@ -6,7 +6,7 @@
 /*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 19:20:41 by bebuber           #+#    #+#             */
-/*   Updated: 2024/07/27 12:58:10 by bebuber          ###   ########.fr       */
+/*   Updated: 2024/07/27 14:00:13 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	builtin_commands(char **args, t_data *data)
 	else if (!ft_strcmp(command, "export"))
 		err_stat = export(args, &data->env);
 	else if (!ft_strcmp(command, "unset"))
-		err_stat = unset(args, &data->env);
+		err_stat = unset(&data->env, args);
 	else if (!ft_strcmp(command, "env"))
 		err_stat = env(data->env, args);
 	else if (!ft_strcmp(command, "exit"))
