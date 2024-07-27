@@ -6,12 +6,11 @@
 /*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:06:09 by bebuber           #+#    #+#             */
-/*   Updated: 2024/07/20 13:58:41 by bebuber          ###   ########.fr       */
+/*   Updated: 2024/07/23 20:50:16 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-// #include "mini.h"
 
 int	echo(char **args)
 {

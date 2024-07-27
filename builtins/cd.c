@@ -6,12 +6,11 @@
 /*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:41:01 by bebuber           #+#    #+#             */
-/*   Updated: 2024/07/23 10:20:17 by bebuber          ###   ########.fr       */
+/*   Updated: 2024/07/26 23:48:00 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-// #include "mini.h"
 
 char	*get_env_value(char *key, char **env)
 {

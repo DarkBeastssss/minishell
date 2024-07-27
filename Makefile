@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: amecani <amecani@student.42.fr>            +#+  +:+       +#+         #
+#    By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/06 21:57:45 by amecani           #+#    #+#              #
-#    Updated: 2024/07/07 23:40:04 by amecani          ###   ########.fr        #
+#    Updated: 2024/07/27 12:57:08 by bebuber          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,8 @@ CFLAGS = -Wall -Werror -Wextra -g3
 
 SOURCES =				minishell.c \
 $(addprefix parsing/,	extract_token.c parse.c utilities.c)
+$(addprefix builtins/,	cd.c echo.c env.c exit.c export.c pwd.c unset.c)
+$(addprefix execution/,	execute.c exe_single.c exe_multiple.c utils.c)
 
 OBJECTS = $(SOURCES:.c=.o)
 
