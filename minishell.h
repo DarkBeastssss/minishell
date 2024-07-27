@@ -6,7 +6,7 @@
 /*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 03:04:51 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/27 13:14:27 by bebuber          ###   ########.fr       */
+/*   Updated: 2024/07/27 14:01:06 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 //? The ammount of .o files is annoying, perhaps create a sepparate folder and
 //?				make the makefile ´put them all there instead
 
-//! ooooh fuck I also have to do in lexing so if it picks up \" or \', idk im not
+//!ooooh fuck I also have to do in lexing so if it picks up \" or \', idk im not
 	//!sure if I have to handle it
 
 //! Handle the case where if < << > > | is first wrong, and if not sorrounded by
@@ -107,15 +107,13 @@ char	extract_quote(char *s);									//!
 int		close_quotes(char *s);									//!
 //!///////////////////////////////////////////////////////////////!
 
-
 //!//MERGE/MERGE/MERGE/MERGE/MERGE/MERGE/MERGE/MERGE/MERGE/MERGE//!
-int		merge(t_token  **token);								//!
+int		merge(t_token **token);									//!
 //!//MERGE/MERGE/MERGE/MERGE/MERGE/MERGE/MERGE/MERGE/MERGE/MERGE//!
 
 //!EXPAND/EXPAND/EXPAND/EXPAND/EXPAND/EXPAND/EXPAND/EXPAND/EXPAND/!
 int		expand(t_token **token);						//!
 //!EXPAND/EXPAND/EXPAND/EXPAND/EXPAND/EXPAND/EXPAND/EXPAND/EXPAND/!
-
 
 //?/////		U T I L I T I E S		//////?
 t_token	*init_deafult_token(t_token *token);//?
@@ -139,14 +137,14 @@ int		update_env(char *key, char *value, char ***env);
 int		add_new_env(char *key, char *value, char ***env);
 void	free_arr(char **env);
 //----> exit.c
-int		ft_exit(t_command *cmmds, t_data *data);
+int		ft_exit(char **args, t_data *data);
 void	print_error(char *command, char *arg, char *error);
 //----> export.c
 int		export(char **args, char ***env);
 //----> pwd.c
 int		pwd(char **args);
 //----> unset.c
-int		unset(char **env, char ***args);
+int		unset(char ***env, char **args);
 
 ////////////// execution //////////////
 //----> execute.c
