@@ -6,35 +6,18 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 02:04:44 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/12 19:21:28 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/24 15:17:46 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	display_tokens(t_token *token)
-{
-	printf("\n");
-	while (token)
-	{
-		printf("string :	%s\n", token->string);
-		printf("type :		%d\n", token->type);
-		if (!token->quote)
-			printf("quote_type :	none\n");
-		else
-			printf("quote_type :	%c\n", token->quote);
-		printf("\n|||||||||||||||||\n\n");
-		token = token->next;
-	}
-	printf("NULL\n");
-}
-
 int	extract_token_characteristic(char *s, t_token **token)
-{//! doesnt handle "" and '' (empty quotes)
+{
 	int		i;
 
 	if (close_quotes(s) == UNCLOSED_QUOTES)
-		return (free(s), printf("Error! Unclosed quotes\n"), 0);
+		return (printf("Error! Unclosed quotes\n"), 0);
 	*token = init_deafult_token(NULL);
 	if (!*token)
 		return (MALLOC_FAIL);
@@ -46,20 +29,15 @@ int	extract_token_characteristic(char *s, t_token **token)
 		(*token)->quote	=	extract_quote(&s[i]);
 		i			    +=	extract_token_text(&s[i], token);
 		(*token)->type		=	extract_token_type((*token)->string);
+		while (s[i] == ' ')
+			i++;
 		if (!s[i])
 			break;
 		(*token)->next		=	init_deafult_token(*token);
 		if (!(*token)->next)
 			return (free_tokens(*token), printf("m_fail\n"), MALLOC_FAIL);
-		(*token) = (*token)->next;
-		while (s[i] == ' ')
-			i++;
+		*token = (*token)->next;
 	}
-	//*// testing poupeses
-	get_first_token(token);
-	display_tokens(*token);
-	get_first_token(token);
-	//*/////////////////
 	return (1);
 }
 
@@ -87,12 +65,12 @@ int	command_center(t_data *data)
 		return (CTRL_D);
 	if (check_gaps_and_clear(data->input))// Specific Check .1
 		return (free(data->input), 1);
-	 if (!extract_token_characteristic(data->input, &data->token))
+	if (!extract_token_characteristic(data->input, &data->token))
 		return (free(data->input), 1);
-	// if (!expand())
-		
+	get_first_token(&data->token);
+	if (!expand(&data->token))
+		return (0); //! fix this later for mallocation error
+	if (!merge(&data->token))
+		return (free(data->input),1);
 	return (0);
-	// return (0);
 }
-
-// hiamecani

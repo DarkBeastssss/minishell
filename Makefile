@@ -15,9 +15,9 @@ LIBFT = libft/libft.a
 CFLAGS = -Wall -Werror -Wextra -g3
 
 SOURCES =				minishell.c \
-$(addprefix parsing/,	extract_token.c parse.c utilities.c)
 $(addprefix builtins/,	cd.c echo.c env.c exit.c export.c pwd.c unset.c)
 $(addprefix execution/,	execute.c exe_single.c exe_multiple.c utils.c)
+$(addprefix parsing/,	extract_token.c parse.c utilities.c expand_and_merge.c)
 
 OBJECTS = $(SOURCES:.c=.o)
 

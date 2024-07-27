@@ -6,7 +6,7 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 02:04:41 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/12 19:07:11 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/24 16:16:05 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 int	main(int argc, char **av)
 {
 	t_data	*data;
-	//! extern char			**environ;
+
 	(void)av;
 
 	if (argc != 1)
-		return (printf("Type only : './minishell' \n"));	
-	//
+		return (printf("Type only : './minishell' \n"));
+
 	data = ft_calloc(1, sizeof(t_data));
 	if (!data)
 		return (printf("m_error\n"));

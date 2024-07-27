@@ -6,7 +6,7 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 05:12:02 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/11 18:52:08 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/21 19:50:18 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,24 @@ char	extract_quote(char *s)
 	return (0);
 }
 
+bool	should_merge(char c)
+{
+	if (c && !ft_strchr(" ><|", c))
+		return (true);
+	return (false);
+}
 
 int	extract_token_text(char *s, t_token **token)
 {
 	int		i = 0;
-	char	sep = s[i];
+	const char	sep = s[i];
 
-	if ((s[0] == '<' && s[1] == '<') || (s[0] == '>' && s[1] == '>'))
-		return ((*token)->string = ft_substr(s, 0, 2), 2);
-	else if (s[0] == '|' || s[0] == '>' || s[0] == '<')
-		return ((*token)->string = ft_substr(s, 0 , 1), 1);
+	if (s[0] == '|' || s[0] == '>' || s[0] == '<')
+		return ((*token)->string = ft_substr(s, 0 , 1),	1);
+	else if ((s[0] == '<' && s[1] == '<') || (s[0] == '>' && s[1] == '>'))
+		return ((*token)->string = ft_substr(s, 0, 2),	2);
+	else if ((s[0] == '\'' && s[1] == '\'') || (s[0] == '\"' && s[1] == '\"'))
+		return ((*token)->string = NULL, (*token)->merge_with_next = should_merge(s[i + 2]), 2);
 	else
 	{
 		i++;
@@ -42,16 +50,19 @@ int	extract_token_text(char *s, t_token **token)
 		}
 		else
 		{
-			while (s[i] && !ft_strchr(" \'\"><|", s[i]))
+			while (s[i] && !not_a_var_char(s[i]))
 				i++;
 			(*token)->string = ft_substr(s, 0, i);
 		}
 	}
+	(*token)->merge_with_next = should_merge(s[i]);
 	return (i);
 }
 
 int	extract_token_type(char *s)
 {
+	if (!s)
+		return (EMPTY);
 	if (!s[1])
 	{
 		if (s[0] == '|')

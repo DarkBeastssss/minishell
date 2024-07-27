@@ -6,7 +6,7 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 18:43:28 by amecani           #+#    #+#             */
-/*   Updated: 2023/10/29 18:28:52 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/20 15:26:27 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ char	*ft_strchr(const char *s, int c)
 {
 	char	*save_point;
 
+	if (!s)
+		return (NULL);
 	c = c % 256;
 	save_point = NULL;
 	if (c == '\0')
