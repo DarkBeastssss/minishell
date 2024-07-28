@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 02:04:44 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/28 19:16:03 by bebuber          ###   ########.fr       */
+/*   Updated: 2024/07/28 21:46:54 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,10 @@ void	test_commands(t_command *cmmds)
 	t_command	*first;
 	int			i;
 
-printf("----------------TEST COMMANDS---------------\n");
 	first = cmmds;
 	while (cmmds)
 	{
+printf("----------------TEST COMMANDS---------------\n");
 		i = 0;
 		printf("Command %d\n", i);
 		printf("Command : %s\n", cmmds->args[i++]);

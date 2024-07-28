@@ -6,7 +6,7 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 03:04:51 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/28 11:05:19 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/28 21:56:27 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int	syntax_check(t_token **token);								//!
 //!SYNTAX/CHECK//SYNTAX/CHECK//SYNTAX/CHECK//SYNTAX/CHECK//SYNTAX/!
 
 //!REDIRECTION/REDIRECTION/REDIRECTION/REDIRECTION/REDIRECTION////!
-int	redirectioning(t_token **token, t_command **command);	//!
+int	redirectioning(t_token **token, t_command **command);		//!
 //!REDIRECTION/REDIRECTION/REDIRECTION/REDIRECTION/REDIRECTION////!
 
 
@@ -119,6 +119,7 @@ t_token	*init_deafult_token(t_token *token);//?
 void	free_tokens(t_token *token);		//?
 int		integer_strchr(char *s, char find);	//?
 void	get_first_token(t_token **token);	//?
+void	get_first_cmnd(t_command **command);//?
 void	display_tokens(t_token *token);		//?
 bool	not_a_var_char(char c);				//?
 //?///////////////////////////////////////////?

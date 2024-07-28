@@ -6,7 +6,7 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 17:52:20 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/28 15:51:31 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/28 21:55:30 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,20 @@
 
 int	get_array_size(t_token **token)
 {
-	t_token *first = *token;
-	int size;
+	int	i;
 
-	size = 0;
-	while ((*token))
+	i = 0;
+	while (*token)
 	{
 		if ((*token)->type == PIPE)
-			size++;
+		{
+			(*token) = (*token)->next;
+			return (i + 1);
+		}
+		i++;
 		(*token) = (*token)->next;
 	}
-	(*token) = first;
-	return (size);
+	return (i + 1);
 }
 
 int	get_string_size(t_token **token)
@@ -53,32 +55,22 @@ int	get_string_size(t_token **token)
 	return (i);
 }
 
-char	**put_strings_in_array(char **args, t_token **token)
+void	put_strings_in_array(char **args, t_token **token)
 {
 	int i;
-	int	j;
-	int	k;
-	t_token *start;
-	t_token *first = (*token);
-
-	j = 0;
-	while (*token)
+	
+	i = 0;
+	while ((*token)->type != PIPE)
 	{
-		i = 0;
-		start = *token;
-		args[j] = ft_calloc(sizeof(char), get_string_size(token) + 1);
-		while (start && start->type != PIPE)
-		{
-			k = 0;
-			while (start->string[k])
-				args[j][i++] = start->string[k++];
-			if (start->next && start->next->type != PIPE)
-				args[j][i++] = ' ';
-			start = start->next;
-		}
-		j++;
+		args[i] = (*token)->string;
+
+		(*token) = (*token)->next;
+		if ((*token) == NULL)
+			return;
+		i++;
 	}
-	return (free_tokens(first), args);
+	(*token) = (*token)->next;
+	
 }
 
 t_command	*init_t_command(t_command *cmd)
@@ -88,33 +80,40 @@ t_command	*init_t_command(t_command *cmd)
 	new = ft_calloc(sizeof(t_command), 1);
 	if (!new)
 		return (NULL);
-	new->prev	= cmd;
+	new->prev = cmd;
 	return (new);
 }
 
 int	redirectioning(t_token **token, t_command **command)
+//hi HI | headphoneless
 {
-	t_token *first;
-	char **array;
-	char *string;
+	t_token *first = (*token);
+	t_token *start;
 
 	(*command) = init_t_command(NULL);
 	if ((*command) == NULL)
 		return (MALLOC_FAIL); //! fix later
-	array = (*command)->args;
 	first = (*token);
-	array = ft_calloc(sizeof(char *), get_array_size(token) + 2);
-	if (!array)
-		return (free_tokens(*token), printf("m_error\n"), MALLOC_FAIL);
-	array = put_strings_in_array(array, token);
-
-	//*/TESTING PORPUSES//////////
-	int i = 0;
-	while (array[i])
+	while (*token)
 	{
-		printf(">%s<\n", array[i]);
-		string = array[i++];
+		start = (*token);
+		(*command)->args = ft_calloc(sizeof(char *), get_array_size(token));
+		if ((*command)->args == NULL)
+			return (MALLOC_FAIL); //! fix later
+		(*token) = start;
+		put_strings_in_array((*command)->args, token);
+		if ((*token) == NULL)
+			break;
+		(*command)->next = init_t_command((*command));
+		if ((*command)->next == NULL)
+			return (MALLOC_FAIL); //! fix later
+		(*command) = (*command)->next;
 	}
-	//*/TESTING PORPUSES//////////
+	while (first)
+	{
+		free(first);
+		first = first->next;
+	}
+	get_first_cmnd(command);
 	return(1);
 }
