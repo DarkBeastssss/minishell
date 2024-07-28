@@ -6,7 +6,7 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 05:12:02 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/21 19:50:18 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/27 23:28:48 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ int	extract_token_text(char *s, t_token **token)
 	int		i = 0;
 	const char	sep = s[i];
 
-	if (s[0] == '|' || s[0] == '>' || s[0] == '<')
-		return ((*token)->string = ft_substr(s, 0 , 1),	1);
-	else if ((s[0] == '<' && s[1] == '<') || (s[0] == '>' && s[1] == '>'))
+	if ((s[0] == '<' && s[1] == '<') || (s[0] == '>' && s[1] == '>'))
 		return ((*token)->string = ft_substr(s, 0, 2),	2);
+	else if(s[0] == '|' || s[0] == '>' || s[0] == '<')
+		return ((*token)->string = ft_substr(s, 0 , 1),	1);
 	else if ((s[0] == '\'' && s[1] == '\'') || (s[0] == '\"' && s[1] == '\"'))
 		return ((*token)->string = NULL, (*token)->merge_with_next = should_merge(s[i + 2]), 2);
 	else

@@ -6,7 +6,7 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 00:10:30 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/24 14:17:29 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/27 20:09:51 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,19 +37,16 @@ void	get_first_token(t_token **token)
 }
 
 void	free_tokens(t_token *token)
-{ // fix free tokens at some point
-// do get_first_token
-// forgot do I need to give the ptr of the ptr?
+{
 	t_token	*temp;
 
+	get_first_token(&token);
 	while (token)
 	{
 		free(token->string);
 		temp = token;
-		token = token->prev;
+		token = token->next;
 		free(temp);
-		if (!token->next)
-			printf("NULL");
 	}
 }
 
@@ -59,7 +56,7 @@ t_token	*init_deafult_token(t_token *token)
 
 	new = ft_calloc(sizeof(t_token), 1);
 	if (!new)
-		return (printf("m_error\n"),  NULL);
+		return (NULL);
 	new->prev	= token;
 	return (new);
 }

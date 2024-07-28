@@ -1,73 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand_and_merge.c                                 :+:      :+:    :+:   */
+/*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 12:55:42 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/21 19:15:58 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/28 00:20:41 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static int	should_it_merge(t_token **token)
-{
-	char	*joint;
-	const t_token	*tmp = (*token);
-
-	//? Take next token into first
-	//? Then work with the free string or to where what
-
-	(*token) = (*token)->next;
-	(*token)->prev = tmp->prev;
-	if (tmp->prev)
-		tmp->prev->next = (*token);
-
-	if (tmp->string && !tmp->next->string)
-		tmp->next->string = tmp->string;
-	else if (tmp->string && tmp->next->string)
-	{
-		joint = ft_strjoin(tmp->string, tmp->next->string);
-		free(tmp->string);
-		free(tmp->next->string);
-		if (!joint)
-			return (MALLOC_FAIL);
-		tmp->next->string = joint;
-	}
-
-	return (free((t_token *)tmp), 1);
-}
-
-
-int	merge(t_token  **token)
-// After merge the quote var, kinda becomes useless and uncorrect
-//? Merge soul reason that exists, is that I did parsing wrong and I aint going to fix it
-{
-	get_first_token(token);
-	while ((*token)->next)
-	{
-		if ((*token)->merge_with_next)
-		{
-			if(!should_it_merge(token))
-			{
-				get_first_token(token);
-				return (free_tokens(*token), MALLOC_FAIL);
-			}
-		}
-		else
-			*token = (*token)->next;
-	}
-	//*// testing poupeses
-	get_first_token(token);
-	display_tokens(*token);
-	get_first_token(token);
-	//*/////////////////
-	return (1);
-}
-
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// void	split_token_into_more_tokens(t_token **token, char *s)
+// {
+// 	const	t_token *first = (*token);
+// 	t_token	*new;
+
+// 	while (*s == ' ')
+// 		s++;
+// 	new = init_deafult_token(first->prev);
+// 	new->string = ft_substr((*token)->string , 0, integer_strchr(s, ' '));
+// 	while (*s)
+// 	{
+// 		while (*s == ' ')
+// 			s++;
+// 		if (*s == '\0')
+// 			break;
+// 		new->next = init_deafult_token(new);
+// 		new = new->next;
+// 		//* printf("%s\n", new->string);
+// 		//!protec malloc here !new
+// 		new->string = ft_substr(s, 0, integer_strchr(s, ' '));
+// 		while (*s != ' ' && *s != '\0')
+// 			s++;
+// 	}
+// 	new->next = first->next;
+// 	free(first->string);
+// }
+
 
 bool	not_a_var_char(char c)
 {
@@ -100,7 +73,7 @@ char	*get_content(char *search)
 	return (NULL);
 }
 
-int	get_size(int env_content_size, char *s)
+int	get_size_v1(int env_content_size, char *s)
 {
 	int i = 0;
 	char *first_intance = ft_strchr(s, '$');
@@ -123,17 +96,15 @@ int	get_size(int env_content_size, char *s)
 }
 
 // if u ask why its like this, OPTIMISATION ++ READIBILITY --
-char *expansion(char *joint, char *content, char *s)
+char *expansion(char *joint, char *content, char *s, char *first_case)
 {
-	const char *first_case = ft_strchr(s, '$');
 	const char *first_joint = joint;
 	const char *first_s = s;
 
 	while (*s)
 	{
-		if (s == first_case)
+		if (s++ == first_case)
 		{
-			s++;
 			while (*s != '$' && *s != ' ' && *s != '\0' && *s != '\'')
 				s++;
 			while (content && *content)
@@ -149,26 +120,27 @@ char *expansion(char *joint, char *content, char *s)
 		joint++;
 		s++;
 	}
-	if (!content && !*first_joint)
-		return (free((char *)(first_s)), NULL);
 	return (free((char *)(first_s)), (char *)first_joint);
-}//! Incase it doesnt free correctly, put the the (char *) outside
+}
 
 int	expand(t_token **token)
-// if $(var) can be sepperated with : space, ' \"
 {
-	char *exp_content;
+	char	*exp_content;
+	char	*new_str;
+	//- int		dollar_pos;
 
-	get_first_token(token);
 	while ((*token))
 	{
-		
+			//- dollar_pos = integer_strchr((*token)->string, '$');
 		if (((*token)->quote != '\'') && ft_strchr((*token)->string, '$'))
 		{
 			exp_content = get_content((*token)->string);
-			(*token)->string = expansion	(ft_calloc(sizeof(char), get_size(ft_strlen(exp_content), (*token)->string)), \
-											exp_content, \
-											(*token)->string);
+			new_str = ft_calloc(sizeof(char), get_size_v1(ft_strlen(exp_content), (*token)->string));
+			if (!new_str)
+				return (free_tokens(*token), MALLOC_FAIL); 
+			(*token)->string = expansion(new_str, exp_content, (*token)->string, ft_strchr((*token)->string, '$'));
+			//- if (ft_strchr(exp_content, ' '))
+			//- 	split_token_into_more_tokens(token, &(*token)->string[dollar_pos]); // do malloc error here
 		}
 		else
 		{
@@ -177,5 +149,5 @@ int	expand(t_token **token)
 			(*token) = (*token)->next;
 		}
 	}
-	return (1); //! do checks for all mallocs
+	return (get_first_token(token), 1);
 }

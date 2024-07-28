@@ -3,37 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 03:04:51 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/27 14:01:06 by bebuber          ###   ########.fr       */
+/*   Updated: 2024/07/28 11:05:19 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//! Fix cases :
+//! •Fix cases :
+//!			That one uk
+//! Syntax Check : printf("Syntax Error\n");
+//! <<<
+//! >>>
+//! | Squished by two words
+//! 
 
+//! •Leaks
 
-// issue of US.UTF-8 still persists
-
-//? The ammount of .o files is annoying, perhaps create a sepparate folder and
-//?				make the makefile ´put them all there instead
-
-//!ooooh fuck I also have to do in lexing so if it picks up \" or \', idk im not
-	//!sure if I have to handle it
-
-//! Handle the case where if < << > > | is first wrong, and if not sorrounded by
+//! •Handle the case where if < << > > | is first wrong, and if not sorrounded by
 //!				a Word token wrong
-//! Specific Check .2
 
-//! In the case of a mallocation error, I should be more  speccific, and print
-//!				out that is malloc_error
-
-//! Double dollar sign weird interpretation, check it in end
-
-//! extern char			**environ;
-
-//! Add in parsing later a ptr to first token, so the get_first_token doesnt 
-//!				have to be called multiple times
+//•extern char			**environ;
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -55,7 +45,7 @@ typedef enum s_type
 {
 	WORD,//*0
 	PIPE,//*1
-	IN,	//*2
+	IN,	//*2 
 	H_DOC,//*3
 	OUT,//*4
 	APPEND,//*5
@@ -112,8 +102,17 @@ int		merge(t_token **token);									//!
 //!//MERGE/MERGE/MERGE/MERGE/MERGE/MERGE/MERGE/MERGE/MERGE/MERGE//!
 
 //!EXPAND/EXPAND/EXPAND/EXPAND/EXPAND/EXPAND/EXPAND/EXPAND/EXPAND/!
-int		expand(t_token **token);						//!
+int		expand(t_token **token);								//!
 //!EXPAND/EXPAND/EXPAND/EXPAND/EXPAND/EXPAND/EXPAND/EXPAND/EXPAND/!
+
+//!SYNTAX/CHECK//SYNTAX/CHECK//SYNTAX/CHECK//SYNTAX/CHECK//SYNTAX/!
+int	syntax_check(t_token **token);								//!
+//!SYNTAX/CHECK//SYNTAX/CHECK//SYNTAX/CHECK//SYNTAX/CHECK//SYNTAX/!
+
+//!REDIRECTION/REDIRECTION/REDIRECTION/REDIRECTION/REDIRECTION////!
+int	redirectioning(t_token **token, t_command **command);	//!
+//!REDIRECTION/REDIRECTION/REDIRECTION/REDIRECTION/REDIRECTION////!
+
 
 //?/////		U T I L I T I E S		//////?
 t_token	*init_deafult_token(t_token *token);//?

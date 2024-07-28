@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+	/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
@@ -20,10 +20,9 @@ int	main(int argc, char **av)
 
 	if (argc != 1)
 		return (printf("Type only : './minishell' \n"));
-
 	data = ft_calloc(1, sizeof(t_data));
 	if (!data)
-		return (printf("m_error\n"));
+		return (printf("m_error\n"), 1);
 	while ("the program is running")
 		if (command_center(data) == CTRL_D)
 			break ;
