@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 02:04:44 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/28 11:04:22 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/28 19:16:03 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,27 @@ static int	check_gaps_and_clear(char *s)// its cuz its a copy
 	return (0);
 }
 
+void	test_commands(t_command *cmmds)
+{
+	t_command	*first;
+	int			i;
+
+printf("----------------TEST COMMANDS---------------\n");
+	first = cmmds;
+	while (cmmds)
+	{
+		i = 0;
+		printf("Command %d\n", i);
+		printf("Command : %s\n", cmmds->args[i++]);
+		printf("Args : ");
+		while (cmmds->args[i])
+			printf("%s ", cmmds->args[i++]);
+		printf("\n");
+		cmmds = cmmds->next;
+	}
+	cmmds = first;
+}
+
 int	command_center(t_data *data)
 {
 	data->input = readline("terminal :");
@@ -80,5 +101,7 @@ int	command_center(t_data *data)
 	if (!redirectioning(&data->token, &data->cmmds))
 		return (free(data->input),1);
 	// You can call excecution here :D
+	test_commands(data->cmmds);
+	//execcution(data);
 	return (0);
 }
