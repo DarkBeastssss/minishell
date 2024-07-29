@@ -6,7 +6,7 @@
 /*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 18:35:19 by bebuber           #+#    #+#             */
-/*   Updated: 2024/07/27 13:58:24 by bebuber          ###   ########.fr       */
+/*   Updated: 2024/07/29 21:53:52 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,5 @@ int	unset(char ***env, char **args)
 			remove_env(env, loc);
 		i++;
 	}
-	ft_putchar_fd('\n', 1);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 18:34:57 by bebuber           #+#    #+#             */
-/*   Updated: 2024/07/23 13:42:05 by bebuber          ###   ########.fr       */
+/*   Updated: 2024/07/29 20:11:43 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	add_new_env(char *key, char *value, char ***env)
 	if (!new_env[j])
 		return (1);
 	new_env[j + 1] = NULL;
-	printf("new_env[j]: %s\n", new_env[j]);
+	// printf("new_env[j]: %s\n", new_env[j]);
 	free_arr(*env);
 	return (*env = new_env, 0);
 }
@@ -58,20 +58,23 @@ int	add_new_env(char *key, char *value, char ***env)
 int	update_env(char *key, char *value, char ***env)
 {
 	int		i;
+	int		j;
 	int		ret;
 	char	*tmp;
 
 	i = 0;
 	while ((*env)[i])
 	{
-		if (strncmp((*env)[i], key, ft_strlen(key)) == 0)
+		j = 0;
+		while ((*env)[i][j] && (*env)[i][j] != '=')
+			j++;
+		if (strncmp((*env)[i], key, j) == 0)
 		{
 			free ((*env)[i]);
 			tmp = ft_strjoin(key, value);
 			if (!tmp)
 				return (1);
 			(*env)[i] = tmp;
-			printf("env[i]: %s\n", (*env)[i]);
 			return (0);
 		}
 		i++;

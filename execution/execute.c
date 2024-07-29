@@ -6,7 +6,7 @@
 /*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 19:20:41 by bebuber           #+#    #+#             */
-/*   Updated: 2024/07/27 14:00:13 by bebuber          ###   ########.fr       */
+/*   Updated: 2024/07/29 19:14:33 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ int	builtin_commands(char **args, t_data *data)
 
 void	execute(t_data *data)
 {
-	alloc_env(&data->env);
 	if (count_commands(data->cmmds) == 1)
 		execute_single_command(data);
 	else
