@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 03:04:51 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/28 21:56:27 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/30 12:13:00 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int		merge(t_token **token);									//!
 //!//MERGE/MERGE/MERGE/MERGE/MERGE/MERGE/MERGE/MERGE/MERGE/MERGE//!
 
 //!EXPAND/EXPAND/EXPAND/EXPAND/EXPAND/EXPAND/EXPAND/EXPAND/EXPAND/!
-int		expand(t_token **token);								//!
+int		expand(t_token **token, char **env);								//!
 //!EXPAND/EXPAND/EXPAND/EXPAND/EXPAND/EXPAND/EXPAND/EXPAND/EXPAND/!
 
 //!SYNTAX/CHECK//SYNTAX/CHECK//SYNTAX/CHECK//SYNTAX/CHECK//SYNTAX/!
@@ -127,7 +127,7 @@ bool	not_a_var_char(char c);				//?
 
 ////////////// builtins //////////////
 //----> cd.c
-int		cd(char **args, char **env);
+int		cd(char **args, char ***env);
 char	*get_env_value(char *key, char **env);
 //----> echo.c
 int		echo(char **args);
@@ -150,7 +150,7 @@ int		unset(char ***env, char **args);
 //----> execute.c
 void	execute(t_data *data);
 int		builtin_commands(char **args, t_data *data);
-int		alloc_env(char ***env);
+int		alloc_env(char ***env, char **environ);
 //----> exe_single.c
 int		execute_single_command(t_data *data);
 char	*find_path(char **env, char *command, t_data *data);

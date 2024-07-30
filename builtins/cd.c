@@ -6,7 +6,7 @@
 /*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:41:01 by bebuber           #+#    #+#             */
-/*   Updated: 2024/07/26 23:48:00 by bebuber          ###   ########.fr       */
+/*   Updated: 2024/07/30 12:04:35 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,26 +40,31 @@ int	set_address(char ***env)
 {
 	char	*oldpwd;
 	char	*pwd;
+	char	*tmp;
 
 	oldpwd = get_env_value("PWD", (*env));
-	pwd = getcwd(NULL, 0);
-	update_env("OLDPWD=", oldpwd, env);
-	update_env("PWD=", pwd, env);
+	tmp = getcwd(NULL, 0);
+	oldpwd = ft_strjoin("=", oldpwd);
+	pwd = ft_strjoin("=", tmp);
+	update_env("OLDPWD", oldpwd, env);
+	update_env("PWD", pwd, env);
 	free(pwd);
+	free(tmp);
+	free(oldpwd);
 	return (0);
 }
 
-int	cd(char **args, char **env)
+int	cd(char **args, char ***env)
 {
 	char	*path;
 
 	if (!args[1] || strcmp(args[1], "~") == 0)
-		path = get_env_value("HOME", env);
+		path = get_env_value("HOME", (*env));
 	else if (args[1][0] == '$' && args[1][1] != '\0')
 	{
-		path = get_env_value(args[1] + 1, env);
+		path = get_env_value(args[1] + 1,(*env));
 		if (!path || chdir(path) == -1)
-			path = get_env_value("HOME", env);
+			path = get_env_value("HOME",(*env));
 	}
 	else
 		path = args[1];
@@ -69,6 +74,7 @@ int	cd(char **args, char **env)
 		return (1);
 	}
 	else
-		set_address(&env);
+		set_address(env);
+	free(path);
 	return (0);
 }

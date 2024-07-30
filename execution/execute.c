@@ -6,17 +6,16 @@
 /*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 19:20:41 by bebuber           #+#    #+#             */
-/*   Updated: 2024/07/29 19:14:33 by bebuber          ###   ########.fr       */
+/*   Updated: 2024/07/30 12:02:25 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	alloc_env(char ***env)
+int	alloc_env(char ***env, char **environ)
 {
 	int			i;
 	int			len;
-	extern char	**environ;
 
 	i = 0;
 	while (environ[i])
@@ -49,7 +48,7 @@ int	builtin_commands(char **args, t_data *data)
 	err_stat = -1;
 	command = args[0];
 	if (!ft_strcmp(command, "cd"))
-		err_stat = cd(args, data->env);
+		err_stat = cd(args, &data->env);
 	else if (!ft_strcmp(command, "echo"))
 		err_stat = echo(args);
 	else if (!ft_strcmp(command, "pwd"))

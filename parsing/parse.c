@@ -6,7 +6,7 @@
 /*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 02:04:44 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/29 22:11:48 by bebuber          ###   ########.fr       */
+/*   Updated: 2024/07/30 12:12:57 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int	command_center(t_data *data)
 		return (free(data->input), 1);
 	if (!extract_token_characteristic(data->input, &data->token))
 		return (free(data->input), 1);
-	if (!expand(&data->token))
+	if (!expand(&data->token, data->env))
 		return (free(data->input), 1);
 	if (!merge(&data->token))
 		return (free(data->input),1);
