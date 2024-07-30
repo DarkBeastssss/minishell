@@ -6,7 +6,7 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 00:10:30 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/28 21:54:53 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/29 13:43:33 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,15 @@ int	integer_strchr(char *s, char find)
 		i++;
 	}
 	return (-1);
+}
+
+t_command	*init_t_command(t_command *cmd)
+{
+	t_command	*new;
+
+	new = ft_calloc(sizeof(t_command), 1);
+	if (!new)
+		return (NULL);
+	new->prev = cmd;
+	return (new);
 }

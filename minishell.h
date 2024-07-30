@@ -6,24 +6,24 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 03:04:51 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/28 21:56:27 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/30 20:42:21 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//! •Fix cases :
-//!			That one uk
-//! Syntax Check : printf("Syntax Error\n");
-//! <<<
-//! >>>
-//! | Squished by two words
-//! 
-
-//! •Leaks
-
 //! •Handle the case where if < << > > | is first wrong, and if not sorrounded by
 //!				a Word token wrong
+//! •Leaks
+// •Show Betyl
+// bash-3.2$ cat < bread cat < bread
+// bash-3.2$ cat < bread bread bread
+// Bread
+// Bread
 
-//•extern char			**environ;
+// bash-3.2$ cat test < bread test bread bread
+// Test Content
+// Test Content
+// bread_holder
+// bread_holder
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -34,7 +34,7 @@
 # define MALLOC_FAIL 0
 # define UNCLOSED_QUOTES - 1
 
-
+#include <fcntl.h>
 # include <stdbool.h>
 # include <stdio.h>
 # include <unistd.h>
@@ -45,12 +45,13 @@ typedef enum s_type
 {
 	WORD,//*0
 	PIPE,//*1
-	IN,	//*2 
+	IN,	//*2
 	H_DOC,//*3
 	OUT,//*4
 	APPEND,//*5
 	ERR,//*6
 	EMPTY,//*7
+	OUT_OR_APPENED,
 }					t_type;
 
 typedef struct s_token
@@ -111,6 +112,7 @@ int	syntax_check(t_token **token);								//!
 
 //!REDIRECTION/REDIRECTION/REDIRECTION/REDIRECTION/REDIRECTION////!
 int	redirectioning(t_token **token, t_command **command);		//!
+int	redirectioning_v2(t_token **token, t_command **command);	//!
 //!REDIRECTION/REDIRECTION/REDIRECTION/REDIRECTION/REDIRECTION////!
 
 
@@ -122,6 +124,7 @@ void	get_first_token(t_token **token);	//?
 void	get_first_cmnd(t_command **command);//?
 void	display_tokens(t_token *token);		//?
 bool	not_a_var_char(char c);				//?
+t_command	*init_t_command(t_command *cmd);//?
 //?///////////////////////////////////////////?
 
 

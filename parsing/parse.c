@@ -6,7 +6,7 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 02:04:44 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/28 21:46:54 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/30 12:53:37 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,9 @@ int	command_center(t_data *data)
 	if (!syntax_check(&data->token))
 		return (free(data->input),1);
 	if (!redirectioning(&data->token, &data->cmmds))
+		return (free(data->input),1);
+	//! Make someone check your fd's numbers in this, to be sure I got it right
+	if (!redirectioning_v2(&data->token, &data->cmmds))
 		return (free(data->input),1);
 	// You can call excecution here :D
 	test_commands(data->cmmds);

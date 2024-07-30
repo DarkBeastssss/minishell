@@ -6,7 +6,7 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 17:52:20 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/28 21:55:30 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/29 13:54:58 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,19 +73,8 @@ void	put_strings_in_array(char **args, t_token **token)
 	
 }
 
-t_command	*init_t_command(t_command *cmd)
-{
-	t_command	*new;
-
-	new = ft_calloc(sizeof(t_command), 1);
-	if (!new)
-		return (NULL);
-	new->prev = cmd;
-	return (new);
-}
 
 int	redirectioning(t_token **token, t_command **command)
-//hi HI | headphoneless
 {
 	t_token *first = (*token);
 	t_token *start;
@@ -109,11 +98,7 @@ int	redirectioning(t_token **token, t_command **command)
 			return (MALLOC_FAIL); //! fix later
 		(*command) = (*command)->next;
 	}
-	while (first)
-	{
-		free(first);
-		first = first->next;
-	}
+	(*token) = first;
 	get_first_cmnd(command);
 	return(1);
 }
