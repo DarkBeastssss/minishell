@@ -6,7 +6,7 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 17:52:20 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/29 13:54:58 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/30 20:48:53 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ void	put_strings_in_array(char **args, t_token **token)
 		i++;
 	}
 	(*token) = (*token)->next;
-	
 }
 
 

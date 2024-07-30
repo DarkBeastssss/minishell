@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int	main(int argc, char **av)
+int	main(int argc, char **av, char **environ)
 {
 	t_data	*data;
 
@@ -23,6 +23,7 @@ int	main(int argc, char **av)
 	data = ft_calloc(1, sizeof(t_data));
 	if (!data)
 		return (printf("m_error\n"), 1);
+	alloc_env(&data->env, environ);
 	while ("the program is running")
 		if (command_center(data) == CTRL_D)
 			break ;

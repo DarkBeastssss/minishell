@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 12:55:42 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/28 00:20:41 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/30 12:13:29 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,8 @@ bool	not_a_var_char(char c)
 	return (true);
 }
 
-char	*get_content(char *search)
+char	*get_content(char *search, char **environ)
 {
-	extern char			**environ;
 	char *debugg;
 	int i;
 	int array;
@@ -123,7 +122,7 @@ char *expansion(char *joint, char *content, char *s, char *first_case)
 	return (free((char *)(first_s)), (char *)first_joint);
 }
 
-int	expand(t_token **token)
+int	expand(t_token **token, char **environ)
 {
 	char	*exp_content;
 	char	*new_str;
@@ -134,7 +133,7 @@ int	expand(t_token **token)
 			//- dollar_pos = integer_strchr((*token)->string, '$');
 		if (((*token)->quote != '\'') && ft_strchr((*token)->string, '$'))
 		{
-			exp_content = get_content((*token)->string);
+			exp_content = get_content((*token)->string, environ);
 			new_str = ft_calloc(sizeof(char), get_size_v1(ft_strlen(exp_content), (*token)->string));
 			if (!new_str)
 				return (free_tokens(*token), MALLOC_FAIL); 
