@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: amecani <amecani@student.42.fr>            +#+  +:+       +#+         #
+#    By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/06 21:57:45 by amecani           #+#    #+#              #
-#    Updated: 2024/07/31 20:37:30 by amecani          ###   ########.fr        #
+#    Updated: 2024/07/31 21:12:32 by bebuber          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ CFLAGS = -Wall -Werror -Wextra -g3 -I.
 
 _SOURCES =				minishell.c \
 $(addprefix builtins/,	cd.c echo.c env.c exit.c export.c pwd.c unset.c) \
-$(addprefix execution/,	execute.c exe_single.c exe_multiple.c utils.c) \
+$(addprefix execution/,	execute.c exe_single.c exe_multiple.c utils.c signal.c) \
 $(addprefix parsing/,	extract_token.c parse.c utilities.c expand.c \
 						merge.c syntax_check.c redirectioning.c \
 						redirectioning_v2.c redirectioning_v3_extra_fucntions.c \

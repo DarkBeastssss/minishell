@@ -6,7 +6,7 @@
 /*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 16:56:16 by bebuber           #+#    #+#             */
-/*   Updated: 2024/07/31 19:04:04 by bebuber          ###   ########.fr       */
+/*   Updated: 2024/07/31 21:07:20 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,12 @@
 void	execution_handle(int sig)
 {
 	if (sig == SIGINT)
-		printf("^C");
+		printf("^C\n");
 	else if (sig == SIGQUIT)
-		printf("^\\Quit: 3");
-	{
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		write(1, "\n", 1);
-		rl_redisplay();
-	}
+		printf("^\\Quit: 3\n");
 }
 
-void	newline(int sig, t_data *data)
+void	newline(int sig)
 {
 	if (sig == SIGINT)
 	{

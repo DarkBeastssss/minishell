@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 02:04:44 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/31 20:24:13 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/31 21:11:11 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ static int	check_gaps_and_clear(char *s)
 
 int	command_center(t_data *data)
 {
+	signal_handler(COMMAND);
 	data->input = readline("terminal :");
 	data->token = NULL;
 	data->cmmds = NULL;
