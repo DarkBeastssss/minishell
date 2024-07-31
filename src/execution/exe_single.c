@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exe_single.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 20:24:41 by bebuber           #+#    #+#             */
-/*   Updated: 2024/07/26 22:31:59 by bebuber          ###   ########.fr       */
+/*   Updated: 2024/07/31 17:06:39 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "minishell.h"
 
 char	*find_path(char **env, char *command, t_data *data)
 {

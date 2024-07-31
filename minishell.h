@@ -6,14 +6,15 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 03:04:51 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/31 14:36:37 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/31 16:41:11 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//! Fix H_DOC
+//! Fix 
+//! •H_DOC
+//! • asdbasbd | asdaasdd with both fd (they keep the first fd)
 //! •Handle the case where if < << > > | is first wrong, and if not sorrounded by
 //!				a Word token wrong
-//! •Leaks
 
 // echo "hello $PWD 42"
 // echo "helloo $PWD 42"

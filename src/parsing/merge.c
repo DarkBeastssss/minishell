@@ -6,11 +6,11 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 00:16:39 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/31 13:36:33 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/31 17:07:45 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "minishell.h"
 
 static int	should_it_merge(t_token **token)
 // lowkey check later the fuck this monstrosity I have created

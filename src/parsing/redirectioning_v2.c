@@ -6,11 +6,11 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 13:44:09 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/31 11:01:42 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/31 17:07:45 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "minishell.h"
 
 //? out < fd_input
 //  cat < test
@@ -55,6 +55,8 @@ int	h_doc_case(t_token *token)
 			break;
 		// line[ft_strlen(line) - 1] = '\0';
 	}
+	close(fd);
+	fd = open("h_doc.txt", O_RDONLY);
 	return (free(line), fd);
 }
 

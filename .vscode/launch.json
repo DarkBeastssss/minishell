@@ -11,6 +11,7 @@
 			"program": "/Users/amecani/minishell/minishell",
 			// "program": "${workspaceFolder}/<executable file>",
 			"args": [],
+			"preLaunchTask": "compile",
 			"cwd": "${workspaceFolder}"
 		}
 	]
