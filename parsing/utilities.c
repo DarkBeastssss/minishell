@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utilities.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 00:10:30 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/31 15:21:12 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/31 15:58:15 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	free_tokens(t_token **token)
 	{
 		tmp = (*token);
 		(*token) = (*token)->prev;
-		// free(tmp->string);
+		free(tmp->string);
 		free(tmp);
 	}
 }

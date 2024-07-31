@@ -6,7 +6,7 @@
 /*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 18:35:05 by bebuber           #+#    #+#             */
-/*   Updated: 2024/07/27 13:54:15 by bebuber          ###   ########.fr       */
+/*   Updated: 2024/07/31 16:07:22 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,7 @@ int	ft_exit(char **args, t_data *data)
 		}
 		data->exit_code = (ft_atoi(args[1]) % 256);
 	}
+	system("leaks minishell");
+	free_arr(data->env);
 	exit(data->exit_code);
 }
