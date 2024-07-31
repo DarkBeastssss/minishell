@@ -6,7 +6,7 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 00:10:30 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/31 12:27:54 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/31 15:21:12 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,17 +58,18 @@ void	get_first_cmnd(t_command **command)
 		(*command) = (*command)->prev;
 }
 
-void	free_tokens(t_token *token)
+void	free_tokens(t_token **token)
 {
-	t_token	*temp;
+	t_token	*tmp;
 
-	get_first_token(&token);
-	while (token)
+	while ((*token)->next)
+		(*token) = (*token)->next;
+	while (*token)
 	{
-		free(token->string);
-		temp = token;
-		token = token->next;
-		free(temp);
+		tmp = (*token);
+		(*token) = (*token)->prev;
+		// free(tmp->string);
+		free(tmp);
 	}
 }
 

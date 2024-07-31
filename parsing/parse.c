@@ -6,7 +6,7 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 02:04:44 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/31 14:08:13 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/31 15:19:50 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	extract_token_characteristic(char *s, t_token **token)
 			break;
 		(*token)->next		=	init_deafult_token(*token);
 		if (!(*token)->next)
-			return (free_tokens(*token), printf("m_fail\n"), MALLOC_FAIL);
+			return (free_tokens(token), printf("m_fail\n"), MALLOC_FAIL);
 		*token = (*token)->next;
 	}
 	return (get_first_token(token), 1);
@@ -103,24 +103,25 @@ int	command_center(t_data *data)
 
 	// Input + (Token_struct + Token->string) => being freed
 	if (!expand(&data->token, data->env))
-		return (free_tokens(data->token), 1);
+		return (free_tokens(&data->token), 1);
 	if (!merge(&data->token))
-		return (free_tokens(data->token), 1);
+		return (free_tokens(&data->token), 1);
 	if (!syntax_check(&data->token))
-		return (free_tokens(data->token), 1);
+		return (free_tokens(&data->token), 1);
 	//
 
 	//! Input + (Command_struct + Command-> array) + (Token_struct + Token->string) => being freed
 	if (!redirectioning(&data->token, &data->cmmds))
-		return (free_command_structs_and_double_array_only(data->cmmds), free_tokens(data->token), 1);
+		return (free_command_structs_and_double_array_only(data->cmmds), free_tokens(&data->token), 1);
 	if (!redirectioning_v2(&data->token, &data->cmmds))
-		return (free_command_structs_and_double_array_only(data->cmmds), free_tokens(data->token), 1);
+		return (free_command_structs_and_double_array_only(data->cmmds), free_tokens(&data->token), 1);
 	//!
 
 	// test_commands(data->cmmds);
 	execute(data);
 ///////////////////////////////////////////////////////////////-
-	free_tokens(data->token);
+	free_tokens(&data->token);
+	// specific_free(&data->token);
 	free_command_structs_and_double_array_only(data->cmmds);
 	return (0);
 ///////////////////////////////////////////////////////////////-

@@ -6,7 +6,7 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 03:04:51 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/31 12:26:23 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/31 14:36:37 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 //! •Handle the case where if < << > > | is first wrong, and if not sorrounded by
 //!				a Word token wrong
 //! •Leaks
+
+// echo "hello $PWD 42"
+// echo "helloo $PWD 42"
+// cd .. (free stuff)
 
 // •Show Betyl
 // bash-3.2$ cat < bread cat < bread
@@ -120,7 +124,7 @@ int	redirectioning_v2(t_token **token, t_command **command);	//!
 
 //?/////		U T I L I T I E S		//////?
 t_token	*init_deafult_token(t_token *token);//?
-void	free_tokens(t_token *token);		//?
+void	free_tokens(t_token **token);		//?
 int		integer_strchr(char *s, char find);	//?
 void	get_first_token(t_token **token);	//?
 void	get_first_cmnd(t_command **command);//?
