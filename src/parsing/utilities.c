@@ -6,13 +6,13 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 00:10:30 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/31 20:27:50 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/31 22:22:47 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_command_structs_and_double_array_only(t_command *command)
+void	free_command_and_array(t_command *command)
 {
 	t_command	*tmp;
 

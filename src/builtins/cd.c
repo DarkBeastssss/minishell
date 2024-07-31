@@ -6,7 +6,7 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:41:01 by bebuber           #+#    #+#             */
-/*   Updated: 2024/07/31 21:00:03 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/31 22:26:57 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,30 +59,15 @@ int	set_address(char ***env)
 int	cd(char **args, char ***env)
 {
 	char	*path;
-	int		i;
 
-	i = 0;
-	if (!args[1] || strcmp(args[1], "~") == 0)
+	if (!args[1] || strcmp(args[1], "~") == 0 || args[1][0] == '\0')
 		path = get_env_value("HOME", (*env));
-	else if (args[1][0] == '$' && args[1][1] != '\0')
-	{
-		path = get_env_value(args[1] + 1, (*env));
-		if (!path || chdir(path) == -1)
-			path = get_env_value("HOME", (*env));
-	}
 	else
-	{
-		i = 1;
 		path = args[1];
-	}
 	if (chdir(path) == -1)
-	{
-		print_error("cd", path, "No such file or directory");
-		return (1);
-	}
-	else
-		set_address(env);
-	if (i == 0)
+		return (print_error("cd", path, "No such file or directory"), 1);
+	set_address(env);
+	if (path != args[1])
 		free(path);
 	return (0);
 }

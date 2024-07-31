@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 16:56:16 by bebuber           #+#    #+#             */
-/*   Updated: 2024/07/31 21:07:20 by bebuber          ###   ########.fr       */
+/*   Updated: 2024/07/31 22:08:12 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	newline(int sig)
 	}
 }
 
-void   signal_handler(enum sig_mode mode)
+void	signal_handler(enum e_sig_mode mode)
 {
 	if (mode == EXECUTION)
 	{

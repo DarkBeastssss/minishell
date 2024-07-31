@@ -6,7 +6,7 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 18:35:05 by bebuber           #+#    #+#             */
-/*   Updated: 2024/07/31 17:07:45 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/31 22:21:42 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,7 @@ int	ft_exit(char **args, t_data *data)
 	if (args[1])
 	{
 		if (args[2])
-		{
-			print_error("exit", args[1], "too many arguments");
-			return (1);
-		}
+			return (print_error("exit", args[1], "too many arguments"), 1);
 		while (args[1][i])
 		{
 			if (i == 0 && args[1][i] == '-')
@@ -47,7 +44,6 @@ int	ft_exit(char **args, t_data *data)
 		}
 		data->exit_code = (ft_atoi(args[1]) % 256);
 	}
-	system("leaks minishell");
 	free_arr(data->env);
 	exit(data->exit_code);
 }

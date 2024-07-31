@@ -6,7 +6,7 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 03:04:51 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/31 22:04:36 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/31 22:22:47 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,26 +39,26 @@
 # include <stdbool.h>
 # include <stdio.h>
 # include <unistd.h>
-#include <termios.h>
+# include <termios.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 
-enum sig_mode
+enum e_sig_mode
 {
 	EXECUTION,
 	COMMAND,
 	HEREDOC
 };
 
-typedef enum s_type
+typedef enum e_type
 {
-	WORD,//*0
-	EMPTY,//*1
-	PIPE,//*2
-	IN,	//*3
-	H_DOC,//*4
-	OUT,//*5
-	APPEND,//*6
+	WORD,
+	EMPTY,
+	PIPE,
+	IN,
+	H_DOC,
+	OUT,
+	APPEND
 }					t_type;
 
 typedef struct s_token
@@ -130,7 +130,7 @@ void		get_first_cmnd(t_command **command);							//?
 void		display_tokens(t_token *token);									//?
 bool		not_a_var_char(char c);											//?
 t_command	*init_t_command(t_command *cmd);								//?
-void		free_command_structs_and_double_array_only(t_command *command); //?
+void		free_command_and_array(t_command *command); //?
 t_command	*init_t_command(t_command *cmd);								//?
 int			integer_strchr(char *s, char find);								//?
 t_token		*init_deafult_token(t_token *token);							//?
@@ -177,6 +177,6 @@ void		close_all_pipes(int **fd, int nb_cmds);
 int			count_commands(t_command *current);
 int			ft_strcmp(const char *s1, const char *s2);
 //----> signal.c
-void   signal_handler(enum sig_mode mode);
+void		signal_handler(enum e_sig_mode mode);
 
 #endif

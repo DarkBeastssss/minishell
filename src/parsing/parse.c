@@ -6,7 +6,7 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 02:04:44 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/31 22:06:14 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/31 22:23:45 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,13 +100,11 @@ int	command_center(t_data *data)
 		return (free_tokens(&data->token), 1);
 	if (!syntax_check(&data->token))
 		return (free_tokens(&data->token), 1);
-	if (!redirectioning(&data->token, &data->cmmds))
-		return (free_command_structs_and_double_array_only(data->cmmds), \
-		free_tokens(&data->token), 1);
-	if (!redirectioning_v2(&data->token, &data->cmmds))
-		return (free_command_structs_and_double_array_only(data->cmmds), \
+	if (!redirectioning(&data->token, &data->cmmds)
+		|| !redirectioning_v2(&data->token, &data->cmmds))
+		return (free_command_and_array(data->cmmds), \
 		free_tokens(&data->token), 1);
 	execute(data);
-	free_command_structs_and_double_array_only(data->cmmds);
+	free_command_and_array(data->cmmds);
 	return (free_tokens(&data->token), unlink("h_doc.txt"), 0);
 }
