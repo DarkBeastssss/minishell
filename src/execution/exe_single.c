@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exe_single.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 20:24:41 by bebuber           #+#    #+#             */
-/*   Updated: 2024/07/31 17:06:39 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/31 21:09:22 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,5 +98,7 @@ int	execute_single_command(t_data *data)
 	restore_and_close_fds(fd);
 	if (WIFEXITED(status))
 		data->exit_code = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+		data->exit_code = 128 + WTERMSIG(status);
 	return (0);
 }

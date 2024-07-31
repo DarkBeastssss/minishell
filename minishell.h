@@ -6,7 +6,7 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 03:04:51 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/31 21:50:15 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/31 22:04:36 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,16 @@
 # include <stdbool.h>
 # include <stdio.h>
 # include <unistd.h>
+#include <termios.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+
+enum sig_mode
+{
+	EXECUTION,
+	COMMAND,
+	HEREDOC
+};
 
 typedef enum s_type
 {
@@ -168,5 +176,7 @@ void		free_all_pipes(int **fd, pid_t *pid, int nb_cmds);
 void		close_all_pipes(int **fd, int nb_cmds);
 int			count_commands(t_command *current);
 int			ft_strcmp(const char *s1, const char *s2);
+//----> signal.c
+void   signal_handler(enum sig_mode mode);
 
 #endif

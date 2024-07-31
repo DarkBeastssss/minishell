@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirectioning_v3_extra_fucntions.c                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 20:11:51 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/31 20:12:38 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/31 21:11:50 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	h_doc_case(t_token *token)
 	int			fd;
 	char		*line;
 
+	signal_handler(HEREDOC);
 	fd = open("h_doc.txt", O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	line = readline(">");
 	while (ft_strcmp(line, exit))
