@@ -6,12 +6,11 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 05:12:02 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/31 18:35:19 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/31 21:01:12 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 char	extract_quote(char *s)
 {
@@ -27,18 +26,18 @@ bool	should_merge(char c)
 	return (false);
 }
 
-int	extract_token_text(char *s, t_token **token)
+int	extract_token_text(char *s, t_token **token, int i)
 {
-	int		i;
 	const char	sep = s[0];
 
 	if ((s[0] == '<' && s[1] == '<') || (s[0] == '>' && s[1] == '>'))
-		return ((*token)->string = ft_substr(s, 0, 2),	2);
-	else if(s[0] == '|' || s[0] == '>' || s[0] == '<')
-		return ((*token)->string = ft_substr(s, 0 , 1),	1);
-	else if ((s[0] == '\'' && s[1] == '\'') || (s[0] == '\"' && s[1] == '\"'))
-		return ((*token)->string = NULL, (*token)->merge_with_next = should_merge(s[2]), 2);
-	i = 1;
+		return ((*token)->string = ft_substr(s, 0, 2), 2);
+	else if (s[0] == '|' || s[0] == '>' || s[0] == '<')
+		return ((*token)->string = ft_substr(s, 0, 1), 1);
+	else if ((s[0] == '\'' && s[1] == '\'') || \
+	(s[0] == '\"' && s[1] == '\"'))
+		return ((*token)->string = NULL, \
+		(*token)->merge_with_next = should_merge(s[2]), 2);
 	if (sep == '\'' || sep == '\"')
 	{
 		while (s[i] != sep && s[i])
@@ -52,8 +51,7 @@ int	extract_token_text(char *s, t_token **token)
 			i++;
 		(*token)->string = ft_substr(s, 0, i);
 	}
-	(*token)->merge_with_next = should_merge(s[i]);
-	return (i);
+	return ((*token)->merge_with_next = should_merge(s[i]), i);
 }
 
 int	extract_token_type(char *s)
@@ -79,12 +77,11 @@ int	extract_token_type(char *s)
 	return (WORD);
 }
 
-int		close_quotes(char *s)
+int	close_quotes(char *s)
 {
 	char	*quote;
 
 	quote = NULL;
-
 	while (*s)
 	{
 		if (quote == NULL && (*s == '\'' || *s == '\"'))

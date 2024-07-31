@@ -6,10 +6,9 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 03:04:51 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/31 20:48:10 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/31 21:50:15 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 // echo "hello $PWD 42"
 // echo "helloo $PWD 42"
@@ -91,7 +90,7 @@ int			command_center(t_data *terminal);//*/
 //!/////////	T O K E N	E X T R A C T I O N		//////////////////!
 int			extract_token_characteristic(char *s, t_token **token);	//!
 //!//////////////////////////XD//////////////////////////////////////!
-int			extract_token_text(char *s, t_token **token);			//!
+int			extract_token_text(char *s, t_token **token, int i);	//!
 int			extract_token_type(char *s);							//!
 char		extract_quote(char *s);									//!
 int			close_quotes(char *s);									//!
@@ -102,7 +101,7 @@ int			merge(t_token **token);								//!
 //!//MERGE/MERGE/MERGE/MERGE/MERGE/MERGE/MERGE/MERGE/MERGE/MERGE//!
 
 //!EXPAND/EXPAND/EXPAND/EXPAND/EXPAND/EXPAND/EXPAND/EXPAND/EXPAND/!
-int			expand(t_token **token, char **env);				//!
+int			expand(t_token **token, char **env, int exit_code);	//!
 //!EXPAND/EXPAND/EXPAND/EXPAND/EXPAND/EXPAND/EXPAND/EXPAND/EXPAND/!
 
 //!SYNTAX/CHECK//SYNTAX/CHECK//SYNTAX/CHECK//SYNTAX/CHECK//SYNTAX/!

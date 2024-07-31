@@ -6,7 +6,7 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:41:01 by bebuber           #+#    #+#             */
-/*   Updated: 2024/07/31 17:06:30 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/31 21:00:03 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	set_address(char ***env)
 	char	*oldpwd;
 	char	*pwd;
 	char	*tmp;
-	char 	*tmp2;
+	char	*tmp2;
 
 	tmp2 = get_env_value("PWD", (*env));
 	tmp = getcwd(NULL, 0);
@@ -59,16 +59,16 @@ int	set_address(char ***env)
 int	cd(char **args, char ***env)
 {
 	char	*path;
-	int 	i;
+	int		i;
 
 	i = 0;
 	if (!args[1] || strcmp(args[1], "~") == 0)
 		path = get_env_value("HOME", (*env));
 	else if (args[1][0] == '$' && args[1][1] != '\0')
 	{
-		path = get_env_value(args[1] + 1,(*env));
+		path = get_env_value(args[1] + 1, (*env));
 		if (!path || chdir(path) == -1)
-			path = get_env_value("HOME",(*env));
+			path = get_env_value("HOME", (*env));
 	}
 	else
 	{

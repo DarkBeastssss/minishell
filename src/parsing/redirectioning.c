@@ -6,7 +6,7 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 17:52:20 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/31 17:07:45 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/31 20:53:06 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ int	get_array_size(t_token **token)
 
 int	get_string_size(t_token **token)
 {
-	int i;
-	int s;
+	int	i;
+	int	s;
 
 	i = 0;
-	while(*token)
+	while (*token)
 	{
 		s = 0;
 		if ((*token)->type != PIPE)
@@ -57,8 +57,8 @@ int	get_string_size(t_token **token)
 
 void	put_strings_in_array(char **args, t_token **token)
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
 	while ((*token)->type != PIPE)
 	{
@@ -66,7 +66,7 @@ void	put_strings_in_array(char **args, t_token **token)
 
 		(*token) = (*token)->next;
 		if ((*token) == NULL)
-			return;
+			return ;
 		i++;
 	}
 	(*token) = (*token)->next;
@@ -97,16 +97,16 @@ int	redirectioning(t_token **token, t_command **command)
 		(*token) = start;
 		put_strings_in_array((*command)->args, token);
 		if ((*token) == NULL)
-			break;
+			break ;
 		(*command)->next = init_t_command((*command));
 		if ((*command)->next == NULL)
 		{
 			first_command = (*command);
-			return (MALLOC_FAIL); //! fix later
+			return (MALLOC_FAIL);
 		}
 		(*command) = (*command)->next;
 	}
 	(*token) = first_token;
 	get_first_cmnd(command);
-	return(1);
+	return (1);
 }

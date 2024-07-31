@@ -6,7 +6,7 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 23:34:54 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/31 20:30:45 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/31 20:57:48 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 int	syntax_check(t_token **token)
 {
-	t_token	*first = (*token);
+	t_token	*first;
 
+	first = (*token);
 	while ((*token))
 	{
 		if ((*token)->next == NULL && \

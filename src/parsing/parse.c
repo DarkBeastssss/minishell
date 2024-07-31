@@ -6,7 +6,7 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 02:04:44 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/31 20:24:13 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/31 21:49:00 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	extract_token_characteristic(char *s, t_token **token)
 	while (s[i])
 	{
 		(*token)->quote = extract_quote(&s[i]);
-		i += extract_token_text(&s[i], token);
+		i += extract_token_text(&s[i], token, 1);
 		(*token)->type = extract_token_type((*token)->string);
 		while (s[i] == ' ')
 			i++;
@@ -93,7 +93,7 @@ int	command_center(t_data *data)
 		return (1);
 	if (!extract_token_characteristic(data->input, &data->token))
 		return (1);
-	if (!expand(&data->token, data->env))
+	if (!expand(&data->token, data->env, data->exit_code))
 		return (free_tokens(&data->token), 1);
 	if (!merge(&data->token))
 		return (free_tokens(&data->token), 1);
