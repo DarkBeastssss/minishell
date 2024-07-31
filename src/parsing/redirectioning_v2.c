@@ -6,98 +6,66 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 13:44:09 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/31 17:58:48 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/31 20:46:19 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+/*
+cat
+NULL
+file
 
-//? out < fd_input
-//  cat < test
-//  cat << a
-//?       in > fd_output
-//echo hello > test
-//echo hello >> test
+> outpu.file echo < input.file hello world
+echo < inout.file hello world
+echo hello world >outpu.file < input.file
+echo hello world NULL
 
-int	out_case(t_token *token)
+
+> outpu.file echo < input.file hello world
+outpu.file echo < input.file hello world
+echo < input.file hello world
+echo hello world
+
+echo  adansd > oo < asdga
+echo  adansd < asdga
+echo  adansd
+*/
+
+static void	remove_from_array(char **args, int i)
 {
-	return (open(token->string, O_WRONLY | O_CREAT | O_TRUNC, 0644));
-}
-
-int	append_case(t_token *token)
-{
-	return (open(token->string, O_WRONLY | O_CREAT | O_APPEND, 0644));
-}
-
-int	in_case(t_token *token)
-{
-	return (open(token->string, O_RDONLY, 0644));
-}
-
-int	h_doc_case(t_token *token)
-{
-	const char	*exit = token->string;
-	int			fd;
-	char		*line;
-
-	fd = open("h_doc.txt", O_WRONLY | O_CREAT | O_TRUNC, 0777);
-	line = readline(">");
-	// line[ft_strlen(line)] = '\0';
-	// CTR-D
-	while (ft_strcmp(line, exit))
+	while (args[i] != NULL)
 	{
-		// line[ft_strlen(line)] = '\n';
-		write (fd, line, ft_strlen(line));
-		write (fd, "\n", 1);
-		free(line);
-		line = readline(">");
-		if (!line)
-			break;
-		// line[ft_strlen(line) - 1] = '\0';
-	}
-	close(fd);
-	fd = open("h_doc.txt", O_RDONLY);
-	return (free(line), fd);
-}
-
-void	update_fd(t_token **token, t_command **command)
-{
-	while ((*token) && (*token)->type != PIPE)
-	{
-		if ((*token)->type == OUT)
-			(*command)->fd_out = out_case((*token)->next);
-		else if ((*token)->type == APPEND)
-			(*command)->fd_out = append_case((*token)->next);
-		else if ((*token)->type == IN)
-			(*command)->fd_in = in_case((*token)->next);
-		else if ((*token)->type == H_DOC)
-			(*command)->fd_in = h_doc_case((*token)->next);
-		*token = (*token)->next;
-	}
-	if ((*token) && (*token)->type == PIPE)
-		(*token) = (*token)->next;
-}
-
-int	first_redirection(t_command **command)
-{
-	int			i;
-
-	i = 0;
-	while   ((*command)->args[i] && \
-			(*command)->args[i][0] != '>' && (*command)->args[i][1] != '\0' && \
-			(*command)->args[i][0] != '<' && (*command)->args[i][1] != '<' && \
-			(*command)->args[i][0] != '<' && (*command)->args[i][1] != '\0' && \
-			(*command)->args[i][0] != '>' && (*command)->args[i][1] != '>')
-	{
+		args[i] = args[i + 1];
 		i++;
 	}
-	return (i);
+}
+
+static void	remove_redirections_argv(t_command *command, t_token *token)
+{
+	int		i;
+
+	i = 0;
+	while (command->args[i] != NULL)
+	{
+		if (token->type >= 3 && token->type <= 6)
+		{
+			remove_from_array(command->args, i);
+			token = token->next;
+			remove_from_array(command->args, i);
+			token = token->next;
+			continue ;
+		}
+		token = token->next;
+		i++;
+	}
 }
 
 int	redirectioning_v2(t_token **token, t_command **command)
 {
 	t_token		*first_t;
 	t_command	*first_c;
+	t_token		*i_need_it_i_swear;
 
 	first_t = (*token);
 	first_c = (*command);
@@ -105,8 +73,9 @@ int	redirectioning_v2(t_token **token, t_command **command)
 	{
 		(*command)->fd_in = -1;
 		(*command)->fd_out = -1;
+		i_need_it_i_swear = (*token);
 		update_fd(token, command);
-		(*command)->args[first_redirection(command)] = NULL;
+		remove_redirections_argv((*command), i_need_it_i_swear);
 		(*command) = (*command)->next;
 	}
 	(*command) = first_c;

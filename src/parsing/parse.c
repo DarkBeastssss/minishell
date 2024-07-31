@@ -6,7 +6,7 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 02:04:44 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/31 18:03:20 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/31 20:24:13 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@ int	extract_token_characteristic(char *s, t_token **token)
 		i++;
 	while (s[i])
 	{
-		(*token)->quote	=	extract_quote(&s[i]);
-		i			    +=	extract_token_text(&s[i], token);
-		(*token)->type		=	extract_token_type((*token)->string);
+		(*token)->quote = extract_quote(&s[i]);
+		i += extract_token_text(&s[i], token);
+		(*token)->type = extract_token_type((*token)->string);
 		while (s[i] == ' ')
 			i++;
 		if (!s[i])
-			break;
-		(*token)->next		=	init_deafult_token(*token);
+			break ;
+		(*token)->next = init_deafult_token(*token);
 		if (!(*token)->next)
 			return (free_tokens(token), printf("m_fail\n"), MALLOC_FAIL);
 		*token = (*token)->next;
@@ -41,9 +41,8 @@ int	extract_token_characteristic(char *s, t_token **token)
 	return (get_first_token(token), 1);
 }
 
-static int	check_gaps_and_clear(char *s)// its cuz its a copy
+static int	check_gaps_and_clear(char *s)
 {
-	//! Theres something here wrong but dc
 	if (!s[0])
 		return (1);
 	if (!ft_strncmp(s, "clear", 5) && \
@@ -51,36 +50,36 @@ static int	check_gaps_and_clear(char *s)// its cuz its a copy
 		return (printf("\033[H\033[J"), 1);
 	while (*s == ' ')
 	{
-		if (*
-		(s + 1) == '\0') 
+		if (*(s + 1) == '\0')
 			return (1);
 		s++;
 	}
 	return (0);
 }
 
-void	test_commands(t_command *cmmds)
-{
-	t_command	*first;
-	int			i;
+//! TESTER REMOVE LATER
+// void	test_commands(t_command *cmmds)
+// {
+// 	t_command	*first;
+// 	int			i;
 
-	first = cmmds;
-	while (cmmds)
-	{
-printf("----------------TEST COMMANDS---------------\n");
-		i = 0;
-		printf("Command %d\n", i);
-		printf("Command : %s\n", cmmds->args[i++]);
-		printf("Args : ");
-		while (cmmds->args[i])
-			printf("%s--", cmmds->args[i++]);
-		cmmds->fd_in = -1;
-		cmmds->fd_out = -1;
-		printf("fd_in: %d fd_out: %d\n", cmmds->fd_in, cmmds->fd_out);
-		cmmds = cmmds->next;
-	}
-	cmmds = first;
-}
+// 	first = cmmds;
+// 	while (cmmds)
+// 	{
+// printf("----------------TEST COMMANDS---------------\n");
+// 		i = 0;
+// 		printf("Command %d\n", i);
+// 		printf("Command : %s\n", cmmds->args[i++]);
+// 		printf("Args : ");
+// 		while (cmmds->args[i])
+// 			printf("%s--", cmmds->args[i++]);
+// 		cmmds->fd_in = -1;
+// 		cmmds->fd_out = -1;
+// 		printf("fd_in: %d fd_out: %d\n", cmmds->fd_in, cmmds->fd_out);
+// 		cmmds = cmmds->next;
+// 	}
+// 	cmmds = first;
+// }
 
 int	command_center(t_data *data)
 {
@@ -88,7 +87,6 @@ int	command_center(t_data *data)
 	data->token = NULL;
 	data->cmmds = NULL;
 	add_history(data->input);
-
 	if (!data->input)
 		return (CTRL_D);
 	if (check_gaps_and_clear(data->input))
@@ -102,13 +100,12 @@ int	command_center(t_data *data)
 	if (!syntax_check(&data->token))
 		return (free_tokens(&data->token), 1);
 	if (!redirectioning(&data->token, &data->cmmds))
-		return (free_command_structs_and_double_array_only(data->cmmds), free_tokens(&data->token), 1);
+		return (free_command_structs_and_double_array_only(data->cmmds), \
+		free_tokens(&data->token), 1);
 	if (!redirectioning_v2(&data->token, &data->cmmds))
-		return (free_command_structs_and_double_array_only(data->cmmds), free_tokens(&data->token), 1);
-	// test_commands(data->cmmds);
+		return (free_command_structs_and_double_array_only(data->cmmds), \
+		free_tokens(&data->token), 1);
 	execute(data);
-	unlink("h_doc.txt");
-	free_tokens(&data->token);
 	free_command_structs_and_double_array_only(data->cmmds);
-	return (0);
+	return (free_tokens(&data->token), unlink("h_doc.txt"), 0);
 }

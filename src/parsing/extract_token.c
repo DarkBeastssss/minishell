@@ -6,7 +6,7 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 05:12:02 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/31 17:07:45 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/31 18:35:19 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,31 +29,28 @@ bool	should_merge(char c)
 
 int	extract_token_text(char *s, t_token **token)
 {
-	int		i = 0;
-	const char	sep = s[i];
+	int		i;
+	const char	sep = s[0];
 
 	if ((s[0] == '<' && s[1] == '<') || (s[0] == '>' && s[1] == '>'))
 		return ((*token)->string = ft_substr(s, 0, 2),	2);
 	else if(s[0] == '|' || s[0] == '>' || s[0] == '<')
 		return ((*token)->string = ft_substr(s, 0 , 1),	1);
 	else if ((s[0] == '\'' && s[1] == '\'') || (s[0] == '\"' && s[1] == '\"'))
-		return ((*token)->string = NULL, (*token)->merge_with_next = should_merge(s[i + 2]), 2);
+		return ((*token)->string = NULL, (*token)->merge_with_next = should_merge(s[2]), 2);
+	i = 1;
+	if (sep == '\'' || sep == '\"')
+	{
+		while (s[i] != sep && s[i])
+			i++;
+		(*token)->string = ft_substr(s, 1, i - 1);
+		i += 1;
+	}
 	else
 	{
-		i++;
-		if (sep == '\'' || sep == '\"')
-		{
-			while (s[i + 1] != sep && s[i])
-				i++;
-			(*token)->string = ft_substr(s, 1, i);
-			i += 2;
-		}
-		else
-		{
-			while (s[i] && !not_a_var_char(s[i]))
-				i++;
-			(*token)->string = ft_substr(s, 0, i);
-		}
+		while (s[i] && !not_a_var_char(s[i]))
+			i++;
+		(*token)->string = ft_substr(s, 0, i);
 	}
 	(*token)->merge_with_next = should_merge(s[i]);
 	return (i);
