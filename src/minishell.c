@@ -6,7 +6,7 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 02:04:41 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/31 22:08:31 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/31 22:28:06 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,5 @@ int	main(int argc, char **av, char **environ)
 	while (command_center(data) != CTRL_D)
 		free(data->input);
 	free_arr(data->env);
-	system("leaks minishell");
 	return (0);
 }
