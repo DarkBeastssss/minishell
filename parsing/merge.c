@@ -6,13 +6,14 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 00:16:39 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/28 00:17:07 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/31 13:36:33 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 static int	should_it_merge(t_token **token)
+// lowkey check later the fuck this monstrosity I have created
 {
 	char	*joint;
 	const t_token	*tmp = (*token);
@@ -46,10 +47,7 @@ int	merge(t_token  **token)
 		if ((*token)->merge_with_next)
 		{
 			if(!should_it_merge(token))
-			{
-				get_first_token(token);
-				return (free_tokens(*token), MALLOC_FAIL);
-			}
+				return (get_first_token(token), MALLOC_FAIL);
 		}
 		else
 			*token = (*token)->next;

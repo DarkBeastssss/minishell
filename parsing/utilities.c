@@ -6,11 +6,27 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 00:10:30 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/29 13:43:33 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/31 12:27:54 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+void	free_command_structs_and_double_array_only(t_command *command)
+{
+	t_command	*tmp;
+
+	while (command->prev)
+		command = command->prev;
+
+	while (command)
+	{
+		tmp = command;
+		command = command->next;
+		free(tmp->args);
+		free(tmp);
+	}
+}
 
 void	display_tokens(t_token *token)
 {

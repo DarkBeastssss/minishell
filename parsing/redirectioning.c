@@ -6,7 +6,7 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 17:52:20 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/30 20:48:53 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/31 14:06:11 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,29 +75,38 @@ void	put_strings_in_array(char **args, t_token **token)
 
 int	redirectioning(t_token **token, t_command **command)
 {
-	t_token *first = (*token);
-	t_token *start;
+	t_token		*first_token = (*token);
+	t_command	*first_command;
+	t_token		*start;
 
 	(*command) = init_t_command(NULL);
 	if ((*command) == NULL)
-		return (MALLOC_FAIL); //! fix later
-	first = (*token);
+		return (MALLOC_FAIL);
+	first_token = (*token);
+	first_command = (*command);
 	while (*token)
 	{
 		start = (*token);
 		(*command)->args = ft_calloc(sizeof(char *), get_array_size(token));
 		if ((*command)->args == NULL)
-			return (MALLOC_FAIL); //! fix later
+		{
+			free(*command);
+			first_command = (*command);
+			return (MALLOC_FAIL);
+		}
 		(*token) = start;
 		put_strings_in_array((*command)->args, token);
 		if ((*token) == NULL)
 			break;
 		(*command)->next = init_t_command((*command));
 		if ((*command)->next == NULL)
+		{
+			first_command = (*command);
 			return (MALLOC_FAIL); //! fix later
+		}
 		(*command) = (*command)->next;
 	}
-	(*token) = first;
+	(*token) = first_token;
 	get_first_cmnd(command);
 	return(1);
 }

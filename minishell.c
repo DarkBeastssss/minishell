@@ -24,8 +24,7 @@ int	main(int argc, char **av, char **environ)
 	if (!data)
 		return (printf("m_error\n"), 1);
 	alloc_env(&data->env, environ);
-	while ("the program is running")
-		if (command_center(data) == CTRL_D)
-			break ;
-	return (free(data), 0);
+	while (command_center(data) != CTRL_D)
+		free(data->input);
+	return (0);
 }

@@ -6,13 +6,15 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 03:04:51 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/30 20:47:59 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/31 12:26:23 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+//! Fix H_DOC
 //! •Handle the case where if < << > > | is first wrong, and if not sorrounded by
 //!				a Word token wrong
 //! •Leaks
+
 // •Show Betyl
 // bash-3.2$ cat < bread cat < bread
 // bash-3.2$ cat < bread bread bread
@@ -125,6 +127,7 @@ void	get_first_cmnd(t_command **command);//?
 void	display_tokens(t_token *token);		//?
 bool	not_a_var_char(char c);				//?
 t_command	*init_t_command(t_command *cmd);//?
+void	free_command_structs_and_double_array_only(t_command *command); //?
 //?///////////////////////////////////////////?
 
 

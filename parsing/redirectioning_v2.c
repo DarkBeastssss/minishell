@@ -6,7 +6,7 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 13:44:09 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/31 10:30:36 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/31 11:01:42 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,18 +41,19 @@ int	h_doc_case(t_token *token)
 	char		*line;
 
 	fd = open("h_doc.txt", O_WRONLY | O_CREAT | O_TRUNC, 0777);
-	line = readline(">"); // hello\n
-	line[ft_strlen(line) - 1] = '\0';
+	line = readline(">");
+	// line[ft_strlen(line)] = '\0';
 	// CTR-D
 	while (ft_strcmp(line, exit))
 	{
-		line[ft_strlen(line)] = '\n';
+		// line[ft_strlen(line)] = '\n';
 		write (fd, line, ft_strlen(line));
+		write (fd, "\n", 1);
 		free(line);
 		line = readline(">");
 		if (!line)
 			break;
-		line[ft_strlen(line) - 1] = '\0';
+		// line[ft_strlen(line) - 1] = '\0';
 	}
 	return (free(line), fd);
 }
