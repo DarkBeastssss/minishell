@@ -26,5 +26,7 @@ int	main(int argc, char **av, char **environ)
 	alloc_env(&data->env, environ);
 	while (command_center(data) != CTRL_D)
 		free(data->input);
+	free_arr(data->env);
+	system("leaks minishell");
 	return (0);
 }

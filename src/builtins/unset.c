@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 18:35:19 by bebuber           #+#    #+#             */
-/*   Updated: 2024/07/31 17:07:45 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/31 17:21:26 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	remove_env(char ***env, int loc)
 		i++;
 	}
 	new_env[j] = NULL;
-	free (*env);
+	free_arr(*env);
 	*env = new_env;
 }
 
