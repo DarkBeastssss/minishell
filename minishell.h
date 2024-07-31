@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bebuber <bebuber@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 03:04:51 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/31 18:11:59 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/31 18:34:17 by bebuber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,13 @@
 # include <unistd.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+
+enum sig_mode
+{
+	EXECUTION,
+	COMMAND,
+	HEREDOC
+};
 
 typedef enum s_type
 {
