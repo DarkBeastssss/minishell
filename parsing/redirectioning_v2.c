@@ -6,7 +6,7 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 13:44:09 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/30 20:39:10 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/31 10:30:36 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	h_doc_case(t_token *token)
 	char		*line;
 
 	fd = open("h_doc.txt", O_WRONLY | O_CREAT | O_TRUNC, 0777);
-	line = readline(">");
+	line = readline(">"); // hello\n
 	line[ft_strlen(line) - 1] = '\0';
 	// CTR-D
 	while (ft_strcmp(line, exit))
@@ -69,16 +69,20 @@ void	update_fd(t_token **token, t_command **command)
 		(*command)->fd_in = h_doc_case((*token)->next);
 }
 
-char	*first_redirection(t_token **token)
+int	first_redirection(t_command **command)
 {
-	t_token	*redrctn;
+	int			i;
 
-	redrctn = (*token);
-	while (redrctn && redrctn->type != OUT && redrctn->type != H_DOC && redrctn->type != IN && redrctn->type != APPEND)
-		redrctn = redrctn->next;
-	if (redrctn == NULL)
-		return (&(*token)->string[ft_strlen((*token)->string)]);
-	return (redrctn->string);
+	i = 0;
+	while   ((*command)->args[i] && \
+			(*command)->args[i][0] != '>' && (*command)->args[i][1] != '\0' && \
+			(*command)->args[i][0] != '<' && (*command)->args[i][1] != '<' && \
+			(*command)->args[i][0] != '<' && (*command)->args[i][1] != '\0' && \
+			(*command)->args[i][0] != '>' && (*command)->args[i][1] != '>')
+	{
+		i++;
+	}
+	return (i);
 }
 
 int	redirectioning_v2(t_token **token, t_command **command)
@@ -92,13 +96,15 @@ int	redirectioning_v2(t_token **token, t_command **command)
 	{
 		(*command)->fd_in = -1;
 		(*command)->fd_out = -1;
-		update_fd(token, command);
-		(*token) = (*token)->next;
-		while ((*token) && ((*token)->type != OUT || (*token)->type != H_DOC || (*token)->type != IN || (*token)->type != APPEND))
+		while ((*token) && ((*token)->type != OUT && (*token)->type != H_DOC && (*token)->type != IN && (*token)->type != APPEND))
 			(*token) = (*token)->next;
+		if ((*token) == NULL)
+			break;
+		update_fd(token, command);
+		(*command)->args[first_redirection(command)] = NULL;
+		(*token) = (*token)->next;
 		(*command) = (*command)->next;
 	}
-	first_redirection(&first_t)[0] = '\0';
 	(*command) = first_c;
 	(*token) = first_t;
 	return (1);
