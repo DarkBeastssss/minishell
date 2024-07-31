@@ -6,7 +6,7 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 13:44:09 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/31 17:07:45 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/31 17:58:48 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,20 @@ int	h_doc_case(t_token *token)
 
 void	update_fd(t_token **token, t_command **command)
 {
-	if ((*token)->type == OUT)
-		(*command)->fd_out = out_case((*token)->next);
-	if ((*token)->type == APPEND)
-		(*command)->fd_out = append_case((*token)->next);
-	else if ((*token)->type == IN)
-		(*command)->fd_in = in_case((*token)->next);
-	else if ((*token)->type == H_DOC)
-		(*command)->fd_in = h_doc_case((*token)->next);
+	while ((*token) && (*token)->type != PIPE)
+	{
+		if ((*token)->type == OUT)
+			(*command)->fd_out = out_case((*token)->next);
+		else if ((*token)->type == APPEND)
+			(*command)->fd_out = append_case((*token)->next);
+		else if ((*token)->type == IN)
+			(*command)->fd_in = in_case((*token)->next);
+		else if ((*token)->type == H_DOC)
+			(*command)->fd_in = h_doc_case((*token)->next);
+		*token = (*token)->next;
+	}
+	if ((*token) && (*token)->type == PIPE)
+		(*token) = (*token)->next;
 }
 
 int	first_redirection(t_command **command)
@@ -99,13 +105,8 @@ int	redirectioning_v2(t_token **token, t_command **command)
 	{
 		(*command)->fd_in = -1;
 		(*command)->fd_out = -1;
-		while ((*token) && ((*token)->type != OUT && (*token)->type != H_DOC && (*token)->type != IN && (*token)->type != APPEND))
-			(*token) = (*token)->next;
-		if ((*token) == NULL)
-			break;
 		update_fd(token, command);
 		(*command)->args[first_redirection(command)] = NULL;
-		(*token) = (*token)->next;
 		(*command) = (*command)->next;
 	}
 	(*command) = first_c;

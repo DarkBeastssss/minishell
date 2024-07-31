@@ -6,7 +6,7 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 02:04:44 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/31 17:07:45 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/31 18:03:20 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,40 +89,26 @@ int	command_center(t_data *data)
 	data->cmmds = NULL;
 	add_history(data->input);
 
-	//? Nothing allocated		(besides data but thats free when program stops)
 	if (!data->input)
 		return (CTRL_D);
-	//?
-
-	//*	Input => freed outside function
 	if (check_gaps_and_clear(data->input))
 		return (1);
 	if (!extract_token_characteristic(data->input, &data->token))
 		return (1);
-	//*
-
-	// Input + (Token_struct + Token->string) => being freed
 	if (!expand(&data->token, data->env))
 		return (free_tokens(&data->token), 1);
 	if (!merge(&data->token))
 		return (free_tokens(&data->token), 1);
 	if (!syntax_check(&data->token))
 		return (free_tokens(&data->token), 1);
-	//
-
-	//! Input + (Command_struct + Command-> array) + (Token_struct + Token->string) => being freed
 	if (!redirectioning(&data->token, &data->cmmds))
 		return (free_command_structs_and_double_array_only(data->cmmds), free_tokens(&data->token), 1);
 	if (!redirectioning_v2(&data->token, &data->cmmds))
 		return (free_command_structs_and_double_array_only(data->cmmds), free_tokens(&data->token), 1);
-	//!
-
 	// test_commands(data->cmmds);
 	execute(data);
-///////////////////////////////////////////////////////////////-
+	unlink("h_doc.txt");
 	free_tokens(&data->token);
-	// specific_free(&data->token);
 	free_command_structs_and_double_array_only(data->cmmds);
 	return (0);
-///////////////////////////////////////////////////////////////-
 }

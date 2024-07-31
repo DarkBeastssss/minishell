@@ -6,7 +6,7 @@
 #    By: amecani <amecani@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/06 21:57:45 by amecani           #+#    #+#              #
-#    Updated: 2024/07/31 17:14:31 by amecani          ###   ########.fr        #
+#    Updated: 2024/07/31 18:09:26 by amecani          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ $(NAME): $(OBJECTS) $(LIBFT)
 bin:
 	@mkdir -p bin/builtins bin/parsing bin/execution
 
-bin/%.o : src/%.c | bin
+bin/%.o : src/%.c $(HEADER)| bin
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean :

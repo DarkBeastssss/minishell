@@ -6,15 +6,12 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 03:04:51 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/31 16:41:11 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/31 18:11:59 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 //! Fix 
-//! •H_DOC
-//! • asdbasbd | asdaasdd with both fd (they keep the first fd)
-//! •Handle the case where if < << > > | is first wrong, and if not sorrounded by
-//!				a Word token wrong
+//! , | BAD
 
 // echo "hello $PWD 42"
 // echo "helloo $PWD 42"
@@ -51,14 +48,12 @@
 typedef enum s_type
 {
 	WORD,//*0
-	PIPE,//*1
-	IN,	//*2
-	H_DOC,//*3
-	OUT,//*4
-	APPEND,//*5
-	ERR,//*6
-	EMPTY,//*7
-	OUT_OR_APPENED,
+	EMPTY,//*1
+	PIPE,//*2
+	IN,	//*3
+	H_DOC,//*4
+	OUT,//*5
+	APPEND,//*6
 }					t_type;
 
 typedef struct s_token
