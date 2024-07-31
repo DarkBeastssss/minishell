@@ -6,7 +6,7 @@
 #    By: amecani <amecani@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/06 21:57:45 by amecani           #+#    #+#              #
-#    Updated: 2024/07/31 18:09:26 by amecani          ###   ########.fr        #
+#    Updated: 2024/07/31 20:37:30 by amecani          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,8 @@ $(addprefix builtins/,	cd.c echo.c env.c exit.c export.c pwd.c unset.c) \
 $(addprefix execution/,	execute.c exe_single.c exe_multiple.c utils.c) \
 $(addprefix parsing/,	extract_token.c parse.c utilities.c expand.c \
 						merge.c syntax_check.c redirectioning.c \
-						redirectioning_v2.c)
+						redirectioning_v2.c redirectioning_v3_extra_fucntions.c \
+						utilities_v2.c)
 SOURCES = $(addprefix src/, $(_SOURCES))
 
 OBJECTS = $(SOURCES:src/%.c=bin/%.o)

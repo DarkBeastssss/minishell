@@ -6,23 +6,21 @@
 /*   By: amecani <amecani@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 00:16:39 by amecani           #+#    #+#             */
-/*   Updated: 2024/07/31 17:07:45 by amecani          ###   ########.fr       */
+/*   Updated: 2024/07/31 20:29:32 by amecani          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static int	should_it_merge(t_token **token)
-// lowkey check later the fuck this monstrosity I have created
 {
-	char	*joint;
+	char			*joint;
 	const t_token	*tmp = (*token);
 
 	(*token) = (*token)->next;
 	(*token)->prev = tmp->prev;
 	if (tmp->prev)
 		tmp->prev->next = (*token);
-
 	if (tmp->string && !tmp->next->string)
 		tmp->next->string = tmp->string;
 	else if (tmp->string && tmp->next->string)
@@ -34,19 +32,17 @@ static int	should_it_merge(t_token **token)
 			return (MALLOC_FAIL);
 		tmp->next->string = joint;
 	}
-
 	return (free((t_token *)tmp), 1);
 }
 
-int	merge(t_token  **token)
-//? Merge soul reason that exists, is that I did parsing wrong and I aint going to fix it
+int	merge(t_token **token)
 {
 	get_first_token(token);
 	while ((*token)->next)
 	{
 		if ((*token)->merge_with_next)
 		{
-			if(!should_it_merge(token))
+			if (!should_it_merge(token))
 				return (get_first_token(token), MALLOC_FAIL);
 		}
 		else
